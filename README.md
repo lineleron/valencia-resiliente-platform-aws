@@ -116,7 +116,8 @@ El operador puede:
 # ☁️ Arquitectura AWS
 
 ![AWS Architecture](docs/aws-architecture.png)
-
+![AWS Architecture](docs/R1.png)
+![AWS Architecture](docs/R2.png)
 ## Arquitectura actual
 
 ```text
