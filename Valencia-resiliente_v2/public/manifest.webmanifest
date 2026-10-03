@@ -1,0 +1,12 @@
+{
+  "name": "València Resiliente",
+  "short_name": "VLC Resiliente",
+  "lang": "es",
+  "start_url": "/ciudadano",
+  "display": "standalone",
+  "background_color": "#edf2f1",
+  "theme_color": "#0B6B70",
+  "icons": [
+    {"src": "/assets/favicon-citizen.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}

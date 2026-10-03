@@ -1,0 +1,1362 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B6B70">
+  <title>València Resiliente · Ciudadanía</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon-citizen.svg">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <style>
+    html,body{margin:0;min-height:100%;background:#edf2f1}
+    body{padding:14px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    .connected-banner{max-width:410px;margin:0 auto 10px;padding:9px 13px;border-radius:12px;background:#e2f3ef;color:#075b4f;font-size:12px;font-weight:700;display:flex;gap:8px;align-items:center;justify-content:center}
+    .connected-banner::before{content:"";width:8px;height:8px;border-radius:50%;background:#087a65}
+  </style>
+  <link rel="stylesheet" href="/assets/app-theme.css">
+  <link rel="stylesheet" href="/assets/citizen-v2.css">
+  <script src="/assets/lucide.min.js"></script>
+</head>
+<body data-page="citizen">
+  <div class="connected-banner" id="citizen-connection" role="status">Conectando con la central…</div>
+<style>
+#vt-citizen-preview {
+  color-scheme: light dark;
+  --c-bg: light-dark(#edf2f1, #071317);
+  --c-surface: light-dark(#ffffff, #102126);
+  --c-soft: light-dark(#f2f7f6, #172b31);
+  --c-text: light-dark(#122327, #eef7f6);
+  --c-muted: light-dark(#5f7376, #9db2b3);
+  --c-line: light-dark(#d9e4e2, #2b4247);
+  --c-brand: light-dark(#006f72, #56c7c7);
+  --c-brand-text: light-dark(#ffffff, #061719);
+  --c-danger: light-dark(#c6353d, #ff7479);
+  --c-warning: light-dark(#bb6600, #ffb24a);
+  --c-success: light-dark(#087a65, #55d2ae);
+  --yellow: #e6b800;
+  --orange: #e67817;
+  --red: #d64049;
+  display: grid;
+  place-items: center;
+  padding: 4px 0;
+  background: transparent;
+  color: var(--c-text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+#vt-citizen-preview * { box-sizing: border-box; }
+#vt-citizen-preview button, #vt-citizen-preview textarea, #vt-citizen-preview a { font: inherit; }
+#vt-citizen-preview button,
+#vt-citizen-preview a[href],
+#vt-citizen-preview select,
+#vt-citizen-preview summary { min-height: 44px; }
+#vt-citizen-preview .vc-phone {
+  width: min(100%, 410px);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+  border-radius: 25px;
+  background: var(--c-bg);
+  box-shadow: 0 16px 48px color-mix(in srgb, var(--c-text) 15%, transparent);
+}
+#vt-citizen-preview .vc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 17px 13px;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-line);
+}
+#vt-citizen-preview .vc-brand { display: flex; align-items: center; gap: 10px; }
+#vt-citizen-preview .vc-logo {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px;
+  background: var(--c-brand); color: var(--c-brand-text);
+}
+#vt-citizen-preview .vc-logo svg { width: 19px; height: 19px; }
+#vt-citizen-preview h1 { margin: 0; font-size: 15px; font-weight: 500; }
+#vt-citizen-preview .vc-subtitle { margin: 2px 0 0; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-session {
+  display: inline-flex; align-items: center; gap: 5px; color: var(--c-success);
+  font-size: 11px; font-weight: 500;
+}
+#vt-citizen-preview .vc-session:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+#vt-citizen-preview .vc-content { padding: 14px; display: grid; gap: 12px; }
+#vt-citizen-preview .vc-alert {
+  padding: 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--c-warning) 10%, var(--c-surface));
+  border: 1px solid color-mix(in srgb, var(--c-warning) 30%, var(--c-line));
+}
+#vt-citizen-preview .vc-alert-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+#vt-citizen-preview .vc-alert-type { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; color: var(--c-warning); }
+#vt-citizen-preview .vc-pill {
+  padding: 4px 7px; border-radius: 999px; background: color-mix(in srgb, var(--c-warning) 13%, transparent);
+  color: var(--c-warning); font-size: 10px; font-weight: 500;
+}
+#vt-citizen-preview .vc-alert h2 { margin: 9px 0 5px; font-size: 17px; font-weight: 500; }
+#vt-citizen-preview .vc-alert p { margin: 0; color: var(--c-muted); font-size: 12px; line-height: 1.45; }
+#vt-citizen-preview .vc-checkin { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 11px; }
+#vt-citizen-preview .vc-checkin button {
+  min-height: 44px; padding: 8px; border: 1px solid color-mix(in srgb, var(--c-warning) 26%, var(--c-line));
+  border-radius: 10px; background: var(--c-surface); color: var(--c-text); cursor: pointer; font-size: 11px;
+}
+#vt-citizen-preview .vc-checkin button.is-selected { border-color: var(--c-brand); background: color-mix(in srgb, var(--c-brand) 10%, var(--c-surface)); }
+#vt-citizen-preview .vc-checkin-label { grid-column: 1 / -1; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-real-emergency {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 9px 10px; padding: 12px;
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--c-danger) 7%, var(--c-surface));
+  border: 1px solid color-mix(in srgb, var(--c-danger) 25%, var(--c-line));
+  color: var(--c-muted); font-size: 11px;
+}
+#vt-citizen-preview .vc-real-emergency svg { width: 17px; height: 17px; flex: 0 0 auto; color: var(--c-danger); }
+#vt-citizen-preview .vc-real-emergency strong { color: var(--c-text); font-weight: 500; }
+#vt-citizen-preview .vc-call-112 {
+  grid-column: 1 / -1; min-height: 49px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 13px; border-radius: 12px; background: var(--c-danger); color: #ffffff;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+}
+#vt-citizen-preview .vc-call-112 svg { color: currentColor; }
+#vt-citizen-preview .vc-call-note { grid-column: 1 / -1; margin: -1px 3px 0; text-align: center; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-question { margin: 1px 0 0; font-size: 14px; font-weight: 500; }
+#vt-citizen-preview .vc-types { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+#vt-citizen-preview .vc-type {
+  min-height: 58px; display: flex; align-items: center; gap: 8px; padding: 10px;
+  border: 1px solid var(--c-line); border-radius: 12px; background: var(--c-surface);
+  color: var(--c-text); text-align: left; cursor: pointer;
+}
+#vt-citizen-preview .vc-type svg { width: 19px; height: 19px; color: var(--c-muted); }
+#vt-citizen-preview .vc-type.is-selected {
+  border-color: var(--c-brand);
+  background: color-mix(in srgb, var(--c-brand) 10%, var(--c-surface));
+}
+#vt-citizen-preview .vc-type.is-selected svg { color: var(--c-brand); }
+#vt-citizen-preview .vc-type span { font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-notes { display: grid; gap: 5px; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview textarea {
+  width: 100%; min-height: 69px; resize: vertical; padding: 10px 11px;
+  border: 1px solid var(--c-line); border-radius: 11px; background: var(--c-surface); color: var(--c-text);
+  font-size: 16px;
+}
+#vt-citizen-preview textarea::placeholder { color: var(--c-muted); }
+#vt-citizen-preview .vc-silent {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 10px;
+  border: 1px solid var(--c-line); border-radius: 11px; background: var(--c-surface); color: var(--c-text); font-size: 11px;
+}
+#vt-citizen-preview .vc-silent input { width: 18px; height: 18px; accent-color: var(--c-brand); }
+#vt-citizen-preview .vc-primary, #vt-citizen-preview .vc-secondary, #vt-citizen-preview .vc-quiet {
+  width: 100%; min-height: 49px; padding: 11px 13px; border-radius: 12px; cursor: pointer;
+}
+#vt-citizen-preview .vc-primary { border: 1px solid transparent; background: var(--c-brand); color: var(--c-brand-text); font-weight: 500; }
+#vt-citizen-preview .vc-secondary { border: 1px solid var(--c-line); background: var(--c-surface); color: var(--c-text); font-weight: 500; }
+#vt-citizen-preview .vc-quiet { border: 0; background: transparent; color: var(--c-muted); }
+#vt-citizen-preview button:focus-visible, #vt-citizen-preview textarea:focus-visible, #vt-citizen-preview a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--c-brand) 36%, transparent); outline-offset: 2px;
+}
+#vt-citizen-preview .vc-privacy { margin: -3px 5px 2px; color: var(--c-muted); font-size: 10px; text-align: center; line-height: 1.4; }
+#vt-citizen-preview .vc-call-head {
+  padding: 16px; border-radius: 15px; background: var(--c-surface); border: 1px solid var(--c-line); text-align: center;
+}
+#vt-citizen-preview .vc-call-icon {
+  width: 50px; height: 50px; margin: 0 auto 9px; display: grid; place-items: center;
+  border-radius: 50%; background: color-mix(in srgb, var(--c-brand) 12%, transparent); color: var(--c-brand);
+}
+#vt-citizen-preview .vc-call-icon svg { width: 23px; height: 23px; }
+#vt-citizen-preview .vc-call-state { color: var(--c-brand); font-size: 11px; font-weight: 500; }
+#vt-citizen-preview .vc-call-head h2 { margin: 5px 0 3px; font-size: 18px; font-weight: 500; }
+#vt-citizen-preview .vc-timer { color: var(--c-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+#vt-citizen-preview .vc-progress { display: grid; gap: 0; padding: 3px 4px; }
+#vt-citizen-preview .vc-step { display: grid; grid-template-columns: 18px 1fr; gap: 9px; min-height: 41px; }
+#vt-citizen-preview .vc-step-mark { position: relative; display: flex; justify-content: center; }
+#vt-citizen-preview .vc-step-mark:after { content: ""; position: absolute; top: 16px; bottom: -1px; width: 1px; background: var(--c-line); }
+#vt-citizen-preview .vc-step:last-child .vc-step-mark:after { display: none; }
+#vt-citizen-preview .vc-step-dot { width: 10px; height: 10px; margin-top: 4px; border-radius: 50%; background: var(--c-line); z-index: 1; }
+#vt-citizen-preview .vc-step.is-done .vc-step-dot { background: var(--c-success); }
+#vt-citizen-preview .vc-step.is-current .vc-step-dot { background: var(--c-brand); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c-brand) 14%, transparent); }
+#vt-citizen-preview .vc-step-title { font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-step-copy { margin-top: 2px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+#vt-citizen-preview .vc-tool {
+  min-height: 78px; display: grid; justify-items: start; align-content: center; gap: 5px; padding: 11px;
+  border: 1px solid var(--c-line); border-radius: 12px; background: var(--c-surface); color: var(--c-text); text-align: left; cursor: pointer;
+}
+#vt-citizen-preview .vc-tool svg { width: 20px; height: 20px; color: var(--c-brand); }
+#vt-citizen-preview .vc-tool strong { font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-tool small { color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-tool.is-complete { border-color: color-mix(in srgb, var(--c-success) 45%, var(--c-line)); }
+#vt-citizen-preview .vc-tool.is-complete svg { color: var(--c-success); }
+#vt-citizen-preview .vc-evidence-title { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+#vt-citizen-preview .vc-evidence-title h2 { margin: 0; font-size: 14px; font-weight: 500; }
+#vt-citizen-preview .vc-evidence-title span { color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-shared {
+  display: flex; align-items: center; gap: 9px; padding: 10px 11px; border-radius: 11px;
+  background: color-mix(in srgb, var(--c-success) 9%, var(--c-surface));
+  color: var(--c-success); font-size: 11px;
+}
+#vt-citizen-preview .vc-shared svg { width: 17px; height: 17px; }
+#vt-citizen-preview .vc-share-text { color: var(--c-muted); }
+#vt-citizen-preview .vc-share-text strong { display: block; color: var(--c-text); font-weight: 500; }
+#vt-citizen-preview .vc-footer {
+  padding: 11px 15px 14px; border-top: 1px solid var(--c-line); background: var(--c-surface);
+  color: var(--c-muted); font-size: 10px; text-align: center;
+}
+#vt-citizen-preview .vc-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+#vt-citizen-preview .sr-only {
+  position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important;
+}
+#vt-citizen-preview.is-contrast .vc-phone { --c-line: light-dark(#a8b6b6, #6c8084); }
+
+#vt-citizen-preview.is-large { font-size: 18px; }
+#vt-citizen-preview.is-large .vc-phone { width: min(100%, 440px); }
+#vt-citizen-preview.is-large .vc-tool strong,
+#vt-citizen-preview.is-large .vc-step-title,
+#vt-citizen-preview.is-large .vc-notes,
+#vt-citizen-preview.is-large .vc-silent { font-size: 14px; }
+#vt-citizen-preview.is-large .vc-side-link,
+#vt-citizen-preview.is-large .vc-setting-row strong,
+#vt-citizen-preview.is-large .vc-feed-item strong,
+#vt-citizen-preview.is-large .vc-info-section h3 { font-size: 14px; }
+#vt-citizen-preview.is-large .vc-info-section p,
+#vt-citizen-preview.is-large .vc-setting-row small,
+#vt-citizen-preview.is-large .vc-feed-meta,
+#vt-citizen-preview.is-large .vc-weather-copy,
+#vt-citizen-preview.is-large .vc-risk-label,
+#vt-citizen-preview.is-large .vc-side-status { font-size: 12px; }
+#vt-citizen-preview.is-large .vc-info-head h2 { font-size: 22px; }
+#vt-citizen-preview.is-large .vc-sidebar { width: min(94%, 350px); }
+#vt-citizen-preview .vc-header-controls { display: flex; align-items: center; gap: 5px; }
+#vt-citizen-preview .vc-language,
+#vt-citizen-preview .vc-access {
+  min-height: 44px; border: 1px solid var(--c-line); border-radius: 9px;
+  background: var(--c-surface); color: var(--c-text);
+}
+#vt-citizen-preview .vc-language { padding: 0 5px; font-size: 12px; }
+#vt-citizen-preview .vc-access { width: 44px; padding: 0; cursor: pointer; }
+#vt-citizen-preview .vc-access svg { width: 18px; height: 18px; }
+#vt-citizen-preview .vc-network {
+  display: flex; align-items: center; gap: 7px; padding: 9px 10px; border-radius: 10px;
+  background: color-mix(in srgb, var(--c-success) 8%, var(--c-surface)); color: var(--c-success); font-size: 11px;
+}
+#vt-citizen-preview .vc-network.is-low { background: color-mix(in srgb, var(--c-warning) 10%, var(--c-surface)); color: var(--c-warning); }
+#vt-citizen-preview .vc-network svg { width: 17px; height: 17px; }
+#vt-citizen-preview .vc-network span { color: var(--c-muted); }
+#vt-citizen-preview .vc-network strong { display: block; color: var(--c-text); font-weight: 500; }
+#vt-citizen-preview .vc-network .vc-mini { margin-left: auto; }
+#vt-citizen-preview .vc-optional { border: 1px solid var(--c-line); border-radius: 11px; background: var(--c-surface); }
+#vt-citizen-preview .vc-optional summary {
+  min-height: 44px; display: flex; align-items: center; padding: 9px 10px; cursor: pointer;
+  color: var(--c-text); font-size: 11px; font-weight: 500;
+}
+#vt-citizen-preview .vc-optional-body { display: grid; gap: 10px; padding: 0 10px 11px; }
+#vt-citizen-preview .vc-checkin.three { grid-template-columns: repeat(3, 1fr); margin: 0; }
+#vt-citizen-preview .vc-checkin.three .vc-checkin-label { grid-column: 1 / -1; }
+#vt-citizen-preview .vc-fields { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; }
+#vt-citizen-preview .vc-field { display: grid; gap: 5px; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview input[type="number"],
+#vt-citizen-preview select.vc-select,
+#vt-citizen-preview .vc-message-input {
+  width: 100%; min-height: 44px; padding: 8px 9px; border: 1px solid var(--c-line);
+  border-radius: 9px; background: var(--c-surface); color: var(--c-text); font-size: 16px;
+}
+#vt-citizen-preview .vc-message-input { min-height: 64px; }
+#vt-citizen-preview .vc-mini {
+  min-height: 44px; padding: 7px 9px; border: 1px solid var(--c-line); border-radius: 9px;
+  background: var(--c-surface); color: var(--c-text); cursor: pointer; font-size: 11px; font-weight: 500;
+}
+#vt-citizen-preview .vc-photo-preview {
+  display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; align-items: center;
+  padding: 10px; border: 1px solid var(--c-line); border-radius: 11px; background: var(--c-surface);
+}
+#vt-citizen-preview .vc-photo-image {
+  width: 88px; aspect-ratio: 4 / 3; display: grid; place-items: center; border-radius: 9px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--c-warning) 18%, var(--c-soft)), color-mix(in srgb, var(--c-brand) 20%, var(--c-soft)));
+  color: var(--c-text);
+}
+#vt-citizen-preview .vc-photo-image svg { width: 25px; height: 25px; }
+#vt-citizen-preview .vc-photo-copy { display: grid; gap: 6px; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-photo-copy strong { color: var(--c-text); font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-photo-copy .vc-actions { margin-top: 2px; }
+#vt-citizen-preview .vc-urgent {
+  border-color: color-mix(in srgb, var(--c-danger) 38%, var(--c-line));
+  color: var(--c-danger);
+}
+#vt-citizen-preview .vc-update-confirm {
+  display: flex; align-items: center; gap: 8px; padding: 10px; border-radius: 10px;
+  background: color-mix(in srgb, var(--c-success) 9%, var(--c-surface)); color: var(--c-success); font-size: 11px;
+}
+#vt-citizen-preview .vc-update-confirm svg { width: 17px; height: 17px; flex: 0 0 auto; }
+#vt-citizen-preview .vc-consent {
+  display: grid; gap: 12px; padding: 16px; border: 1px solid var(--c-line); border-radius: 14px;
+  background: var(--c-surface); text-align: center;
+}
+#vt-citizen-preview .vc-consent .vc-call-icon { margin-bottom: 0; }
+#vt-citizen-preview .vc-consent h2 { margin: 0; font-size: 18px; font-weight: 500; }
+#vt-citizen-preview .vc-consent p { margin: 0; color: var(--c-muted); font-size: 12px; line-height: 1.45; }
+#vt-citizen-preview .vc-instruction,
+#vt-citizen-preview .vc-location-detail,
+#vt-citizen-preview .vc-written {
+  display: grid; gap: 8px; padding: 11px; border: 1px solid var(--c-line);
+  border-radius: 11px; background: var(--c-surface);
+}
+#vt-citizen-preview .vc-instruction {
+  border-color: color-mix(in srgb, var(--c-brand) 38%, var(--c-line));
+  background: color-mix(in srgb, var(--c-brand) 7%, var(--c-surface));
+}
+#vt-citizen-preview .vc-instruction strong,
+#vt-citizen-preview .vc-location-detail strong,
+#vt-citizen-preview .vc-written strong { font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-instruction p,
+#vt-citizen-preview .vc-location-detail p { margin: 0; color: var(--c-muted); font-size: 11px; line-height: 1.45; }
+#vt-citizen-preview .vc-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+#vt-citizen-preview .vc-summary { display: flex; flex-wrap: wrap; gap: 6px; }
+#vt-citizen-preview .vc-summary span { padding: 5px 7px; border-radius: 8px; background: var(--c-soft); color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-closed { display: grid; gap: 8px; padding: 15px; text-align: center; }
+#vt-citizen-preview .vc-closed svg { width: 34px; height: 34px; margin: auto; color: var(--c-success); }
+#vt-citizen-preview .vc-closed h2 { margin: 0; font-size: 18px; }
+#vt-citizen-preview .vc-closed p { margin: 0; color: var(--c-muted); font-size: 12px; }
+#vt-citizen-preview button:disabled { cursor: not-allowed; opacity: .65; }
+@media (max-width: 350px) {
+  #vt-citizen-preview .vc-checkin.three,
+  #vt-citizen-preview .vc-fields { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  #vt-citizen-preview { padding: 0; }
+  #vt-citizen-preview .vc-phone { border-radius: 17px; }
+  #vt-citizen-preview .vc-content { padding: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { #vt-citizen-preview * { scroll-behavior: auto !important; } }
+
+/* Navegación informativa inspirada en la estructura de GVA 112; contenido del piloto */
+#vt-citizen-preview .vc-phone { position: relative; width: min(100%, 920px); }
+#vt-citizen-preview.is-large .vc-phone { width: min(100%, 920px); }
+#vt-citizen-preview .vc-header { position: relative; z-index: 5; }
+#vt-citizen-preview .vc-menu-toggle,
+#vt-citizen-preview .vc-header-112 {
+  min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--c-line); border-radius: 10px; background: var(--c-surface); color: var(--c-text);
+}
+#vt-citizen-preview .vc-menu-toggle { padding: 0; cursor: pointer; }
+#vt-citizen-preview .vc-menu-toggle svg { width: 21px; height: 21px; }
+#vt-citizen-preview .vc-header-112 { padding: 0 10px; border-color: color-mix(in srgb, var(--c-danger) 38%, var(--c-line)); color: var(--c-danger); text-decoration: none; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-app-grid { position: relative; display: grid; grid-template-columns: minmax(0,1fr); }
+#vt-citizen-preview .vc-mainpane { min-width: 0; min-height: 760px; }
+#vt-citizen-preview .vc-emergency-dock {
+  display: grid; grid-template-columns: minmax(108px,.75fr) minmax(0,1.25fr); gap: 8px;
+  padding: 9px 12px; background: var(--c-surface); border-bottom: 1px solid var(--c-line);
+}
+#vt-citizen-preview .vc-dock-call,
+#vt-citizen-preview .vc-dock-report {
+  min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 9px 11px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: 500;
+}
+#vt-citizen-preview .vc-dock-call { border: 1px solid var(--c-danger); background: var(--c-danger); color: #fff; }
+#vt-citizen-preview .vc-dock-report { border: 1px solid var(--c-brand); background: var(--c-brand); color: var(--c-brand-text); cursor: pointer; }
+#vt-citizen-preview .vc-dock-call svg,
+#vt-citizen-preview .vc-dock-report svg { width: 17px; height: 17px; }
+#vt-citizen-preview .vc-sidebar {
+  display: none; position: absolute; z-index: 20; inset: 0 auto 0 0; width: min(88%, 320px);
+  padding: 12px; background: var(--c-surface); border-right: 1px solid var(--c-line);
+  color: var(--c-text);
+}
+#vt-citizen-preview .vc-sidebar.is-open { display: block; }
+#vt-citizen-preview .vc-backdrop {
+  position: absolute; z-index: 15; inset: 0; width: 100%; min-height: 100%; border: 0;
+  background: color-mix(in srgb, var(--c-text) 45%, transparent); cursor: pointer;
+}
+#vt-citizen-preview .vc-side-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+#vt-citizen-preview .vc-side-head strong { font-size: 13px; font-weight: 500; }
+#vt-citizen-preview .vc-side-close { width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--c-text); cursor: pointer; }
+#vt-citizen-preview .vc-side-emergency { display: grid; grid-template-columns: .72fr 1.28fr; gap: 7px; margin-bottom: 10px; }
+#vt-citizen-preview .vc-side-emergency a,
+#vt-citizen-preview .vc-side-emergency button {
+  min-height: 46px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px; border-radius: 9px; font-size: 11px; font-weight: 500; text-decoration: none; cursor: pointer;
+}
+#vt-citizen-preview .vc-side-emergency a { border: 1px solid var(--c-danger); background: var(--c-danger); color: #fff; }
+#vt-citizen-preview .vc-side-emergency button { border: 1px solid var(--c-brand); background: var(--c-brand); color: var(--c-brand-text); }
+#vt-citizen-preview .vc-side-list { display: grid; gap: 2px; }
+#vt-citizen-preview .vc-side-link {
+  width: 100%; min-height: 45px; display: grid; grid-template-columns: 22px minmax(0,1fr) auto;
+  align-items: center; gap: 9px; padding: 8px 9px; border: 0; border-radius: 9px;
+  background: transparent; color: var(--c-text); text-align: left; cursor: pointer; font-size: 12px;
+}
+#vt-citizen-preview .vc-side-link svg { width: 19px; height: 19px; color: var(--c-brand); }
+#vt-citizen-preview .vc-side-link.is-active { background: color-mix(in srgb, var(--c-brand) 11%, var(--c-surface)); color: var(--c-brand); }
+#vt-citizen-preview .vc-side-link .vc-side-signal { width: 8px; height: 8px; border-radius: 50%; background: var(--c-success); }
+#vt-citizen-preview .vc-side-link .vc-side-signal.is-warning { background: var(--c-warning); }
+#vt-citizen-preview .vc-side-link .vc-side-signal.is-danger { background: var(--c-danger); }
+#vt-citizen-preview .vc-side-separator { height: 1px; margin: 7px 8px; background: var(--c-line); }
+#vt-citizen-preview .vc-side-config { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 10px; }
+#vt-citizen-preview .vc-side-config label { display: grid; gap: 4px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-side-config select,
+#vt-citizen-preview .vc-side-config button {
+  width: 100%; min-height: 44px; padding: 7px; border: 1px solid var(--c-line); border-radius: 9px;
+  background: var(--c-surface); color: var(--c-text); cursor: pointer;
+}
+#vt-citizen-preview .vc-side-status { display: flex; align-items: flex-start; gap: 7px; margin-top: 10px; color: var(--c-muted); font-size: 10px; line-height: 1.4; }
+#vt-citizen-preview .vc-side-status svg { width: 16px; height: 16px; color: var(--c-success); flex: 0 0 auto; }
+#vt-citizen-preview .vc-side-status.is-offline svg { color: var(--c-warning); }
+#vt-citizen-preview .vc-info-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+#vt-citizen-preview .vc-info-head h2 { margin: 0; font-size: 18px; font-weight: 500; }
+#vt-citizen-preview .vc-info-head p { margin: 4px 0 0; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-demo-stamp {
+  flex: 0 0 auto; padding: 5px 7px; border-radius: 8px;
+  background: color-mix(in srgb, var(--c-warning) 12%, var(--c-surface)); color: var(--c-warning); font-size: 10px; font-weight: 500;
+}
+#vt-citizen-preview .vc-info-section {
+  display: grid; gap: 9px; padding: 12px; border: 1px solid var(--c-line); border-radius: 12px; background: var(--c-surface);
+}
+#vt-citizen-preview .vc-info-section h3 { margin: 0; font-size: 13px; font-weight: 500; }
+#vt-citizen-preview .vc-info-section p { margin: 0; color: var(--c-muted); font-size: 11px; line-height: 1.45; }
+#vt-citizen-preview .vc-weather-now { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 13px; }
+#vt-citizen-preview .vc-weather-icon { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 18px; background: color-mix(in srgb, var(--c-brand) 11%, var(--c-soft)); color: var(--c-brand); }
+#vt-citizen-preview .vc-weather-icon svg { width: 31px; height: 31px; }
+#vt-citizen-preview .vc-temperature { font-size: 32px; font-weight: 500; font-variant-numeric: tabular-nums; }
+#vt-citizen-preview .vc-weather-copy { color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+#vt-citizen-preview .vc-metric { padding: 8px; border-radius: 9px; background: var(--c-soft); }
+#vt-citizen-preview .vc-metric span { display: block; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-metric strong { display: block; margin-top: 3px; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-risk-legend { display: flex; flex-wrap: wrap; gap: 7px 10px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-risk-legend span { display: inline-flex; align-items: center; gap: 5px; }
+#vt-citizen-preview .vc-risk-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--c-success); flex: 0 0 auto; }
+#vt-citizen-preview .vc-risk-dot[data-level="yellow"] { background: var(--yellow); }
+#vt-citizen-preview .vc-risk-dot[data-level="orange"] { background: var(--orange); }
+#vt-citizen-preview .vc-risk-dot[data-level="red"] { background: var(--red); }
+#vt-citizen-preview .vc-risk-list { display: grid; gap: 5px; }
+#vt-citizen-preview .vc-risk-row {
+  width: 100%; min-height: 50px; display: grid; grid-template-columns: 15px minmax(0,1fr) auto; align-items: center; gap: 9px;
+  padding: 8px 9px; border: 1px solid var(--c-line); border-radius: 10px; background: var(--c-surface); color: var(--c-text); text-align: left; cursor: pointer;
+}
+#vt-citizen-preview .vc-risk-row.is-selected { border-color: var(--c-brand); background: color-mix(in srgb, var(--c-brand) 8%, var(--c-surface)); }
+#vt-citizen-preview .vc-risk-row strong { display: block; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-risk-row small { display: block; margin-top: 2px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-risk-label { color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-feed { display: grid; gap: 7px; }
+#vt-citizen-preview .vc-feed-item { display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 9px; align-items: start; padding: 9px 0; border-bottom: 1px solid var(--c-line); }
+#vt-citizen-preview .vc-feed-item:last-child { border-bottom: 0; }
+#vt-citizen-preview .vc-feed-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; background: var(--c-soft); color: var(--c-brand); }
+#vt-citizen-preview .vc-feed-icon.is-warning { color: var(--c-warning); }
+#vt-citizen-preview .vc-feed-icon.is-danger { color: var(--c-danger); }
+#vt-citizen-preview .vc-feed-icon svg { width: 18px; height: 18px; }
+#vt-citizen-preview .vc-feed-item strong { display: block; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-feed-item p { margin-top: 3px; }
+#vt-citizen-preview .vc-feed-meta { margin-top: 5px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-x-source { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 10px; align-items: center; }
+#vt-citizen-preview .vc-x-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: var(--c-text); color: var(--c-surface); font-size: 20px; font-weight: 500; }
+#vt-citizen-preview .vc-x-source strong { font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-x-source span { display: block; margin-top: 2px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-setting-list { display: grid; gap: 9px; }
+#vt-citizen-preview .vc-setting-row { min-height: 52px; display: grid; grid-template-columns: 27px minmax(0,1fr) auto; align-items: center; gap: 9px; }
+#vt-citizen-preview .vc-setting-row svg { width: 19px; height: 19px; color: var(--c-brand); }
+#vt-citizen-preview .vc-setting-row strong { display: block; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-setting-row small { display: block; margin-top: 2px; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-setting-row select { min-height: 44px; max-width: 126px; padding: 7px; border: 1px solid var(--c-line); border-radius: 9px; background: var(--c-surface); color: var(--c-text); font-size: 12px; }
+#vt-citizen-preview .vc-switch { min-width: 48px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+#vt-citizen-preview .vc-switch input { width: 21px; height: 21px; accent-color: var(--c-brand); }
+#vt-citizen-preview .vc-cache { display: flex; align-items: flex-start; gap: 8px; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-cache svg { width: 18px; height: 18px; color: var(--c-success); flex: 0 0 auto; }
+#vt-citizen-preview .vc-link-demo { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; color: var(--c-brand); font-size: 11px; font-weight: 500; }
+#vt-citizen-preview .vc-link-demo svg { width: 16px; height: 16px; }
+@media (min-width: 700px) {
+  #vt-citizen-preview .vc-app-grid { grid-template-columns: 252px minmax(0,1fr); }
+  #vt-citizen-preview .vc-sidebar { display: block; position: static; width: auto; min-height: 100%; }
+  #vt-citizen-preview .vc-side-close,
+  #vt-citizen-preview .vc-menu-toggle,
+  #vt-citizen-preview .vc-backdrop { display: none !important; }
+  #vt-citizen-preview .vc-mainpane { border-left: 1px solid var(--c-line); }
+  #vt-citizen-preview .vc-content { padding: 16px; }
+}
+@media (max-width: 520px) {
+  #vt-citizen-preview .vc-brand { gap: 7px; }
+  #vt-citizen-preview .vc-logo { width: 32px; height: 32px; }
+  #vt-citizen-preview .vc-emergency-dock { grid-template-columns: 1fr 1.35fr; }
+  #vt-citizen-preview .vc-metrics { grid-template-columns: 1fr; }
+  #vt-citizen-preview .vc-header { padding-left: 11px; padding-right: 11px; }
+}
+
+/* Check-in posterior a una alerta pública: hipótesis operativa pendiente de validar */
+#vt-citizen-preview .vc-public-entry {
+  display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 10px;
+  padding: 12px; border: 1px solid color-mix(in srgb, var(--c-brand) 28%, var(--c-line));
+  border-radius: 12px; background: color-mix(in srgb, var(--c-brand) 7%, var(--c-surface));
+}
+#vt-citizen-preview .vc-public-entry strong { display: block; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-public-entry p { margin: 3px 0 0; color: var(--c-muted); font-size: 10px; line-height: 1.4; }
+#vt-citizen-preview .vc-public-entry button { width: auto; min-width: 118px; }
+#vt-citizen-preview .vc-hypothesis {
+  display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 5px 7px;
+  border-radius: 8px; background: color-mix(in srgb, var(--c-warning) 12%, var(--c-surface));
+  color: var(--c-warning); font-size: 10px; font-weight: 500;
+}
+#vt-citizen-preview .vc-public-form { display: grid; gap: 11px; }
+#vt-citizen-preview .vc-public-block {
+  display: grid; gap: 8px; padding: 11px; border: 1px solid var(--c-line);
+  border-radius: 11px; background: var(--c-surface);
+}
+#vt-citizen-preview .vc-public-block h3 { margin: 0; font-size: 13px; font-weight: 500; }
+#vt-citizen-preview .vc-public-block p { margin: 0; color: var(--c-muted); font-size: 11px; line-height: 1.45; }
+#vt-citizen-preview .vc-public-number { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--c-brand); color: var(--c-brand-text); font-size: 11px; }
+#vt-citizen-preview .vc-public-question { display: flex; align-items: center; gap: 8px; }
+#vt-citizen-preview .vc-public-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+#vt-citizen-preview .vc-public-choices button {
+  min-height: 44px; padding: 8px; border: 1px solid var(--c-line); border-radius: 9px;
+  background: var(--c-surface); color: var(--c-text); cursor: pointer; font-size: 11px;
+}
+#vt-citizen-preview .vc-public-choices button.is-selected {
+  border-color: var(--c-brand); background: color-mix(in srgb, var(--c-brand) 10%, var(--c-surface)); color: var(--c-brand);
+}
+#vt-citizen-preview .vc-check-row {
+  min-height: 44px; display: flex; align-items: center; gap: 9px; padding: 8px 9px;
+  border-radius: 9px; background: var(--c-soft); color: var(--c-text); font-size: 11px;
+}
+#vt-citizen-preview .vc-check-row input { width: 19px; height: 19px; flex: 0 0 auto; accent-color: var(--c-brand); }
+#vt-citizen-preview .vc-reason-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+#vt-citizen-preview .vc-reason-grid .vc-check-row { align-items: flex-start; background: transparent; border: 1px solid var(--c-line); }
+#vt-citizen-preview .vc-public-field { display: grid; gap: 5px; color: var(--c-muted); font-size: 11px; }
+#vt-citizen-preview .vc-public-field select,
+#vt-citizen-preview .vc-public-field input[type="number"] {
+  width: 100%; min-height: 44px; padding: 8px 9px; border: 1px solid var(--c-line);
+  border-radius: 9px; background: var(--c-surface); color: var(--c-text); font-size: 16px;
+}
+#vt-citizen-preview .vc-simple-guide {
+  display: grid; grid-template-columns: auto minmax(0,1fr); gap: 9px; padding: 11px;
+  border-radius: 10px; background: color-mix(in srgb, var(--c-warning) 10%, var(--c-surface));
+}
+#vt-citizen-preview .vc-simple-guide > svg { width: 19px; height: 19px; color: var(--c-warning); }
+#vt-citizen-preview .vc-simple-guide strong { display: block; font-size: 12px; font-weight: 500; }
+#vt-citizen-preview .vc-simple-guide p { margin: 4px 0 7px; }
+#vt-citizen-preview .vc-data-purpose { display: grid; gap: 6px; padding: 10px; border-radius: 10px; background: var(--c-soft); }
+#vt-citizen-preview .vc-data-purpose strong { font-size: 11px; font-weight: 500; }
+#vt-citizen-preview .vc-data-purpose p { margin: 0; color: var(--c-muted); font-size: 10px; line-height: 1.45; }
+#vt-citizen-preview .vc-public-receipt {
+  display: grid; gap: 10px; padding: 14px; border: 1px solid color-mix(in srgb, var(--c-success) 38%, var(--c-line));
+  border-radius: 13px; background: color-mix(in srgb, var(--c-success) 7%, var(--c-surface));
+}
+#vt-citizen-preview .vc-public-receipt.is-pending { border-color: color-mix(in srgb, var(--c-warning) 42%, var(--c-line)); background: color-mix(in srgb, var(--c-warning) 8%, var(--c-surface)); }
+#vt-citizen-preview .vc-receipt-head { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 9px; }
+#vt-citizen-preview .vc-receipt-head svg { width: 24px; height: 24px; color: var(--c-success); }
+#vt-citizen-preview .vc-public-receipt.is-pending .vc-receipt-head svg { color: var(--c-warning); }
+#vt-citizen-preview .vc-receipt-head strong { display: block; font-size: 13px; font-weight: 500; }
+#vt-citizen-preview .vc-receipt-head span { color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-receipt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+#vt-citizen-preview .vc-receipt-grid div { padding: 8px; border-radius: 9px; background: var(--c-surface); }
+#vt-citizen-preview .vc-receipt-grid span { display: block; color: var(--c-muted); font-size: 10px; }
+#vt-citizen-preview .vc-receipt-grid strong { display: block; margin-top: 2px; font-size: 11px; font-weight: 500; }
+#vt-citizen-preview .vc-error { margin: 0; color: var(--c-danger); font-size: 11px; font-weight: 500; }
+@media (max-width: 440px) {
+  #vt-citizen-preview .vc-public-entry { grid-template-columns: 1fr; }
+  #vt-citizen-preview .vc-public-entry button { width: 100%; }
+  #vt-citizen-preview .vc-reason-grid,
+  #vt-citizen-preview .vc-receipt-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+
+<section id="vt-citizen-preview" aria-label="Maqueta de la aplicación ciudadana">
+  <article class="vc-phone">
+    <header class="vc-header">
+      <div class="vc-brand">
+        <button class="vc-menu-toggle" id="vc-menu-toggle" type="button" aria-label="Abrir información y configuración" aria-expanded="false" aria-controls="vc-sidebar"><i data-lucide="menu" aria-hidden="true"></i></button>
+        <div class="vc-logo" aria-hidden="true"><i data-lucide="shield-check"></i></div>
+        <div><h1>València Resiliente</h1><p class="vc-subtitle">Acceso ciudadano temporal</p></div>
+      </div>
+      <a class="vc-header-112" href="tel:112" aria-label="Abrir el marcador con el 112"><i data-lucide="phone" aria-hidden="true"></i>&nbsp;112</a>
+    </header>
+    <div class="vc-app-grid">
+      <button class="vc-backdrop" id="vc-backdrop" type="button" aria-label="Cerrar menú" hidden></button>
+      <nav class="vc-sidebar" id="vc-sidebar" aria-label="Información y configuración"></nav>
+      <div class="vc-mainpane">
+        <div class="vc-emergency-dock" id="vc-emergency-dock"></div>
+        <main class="vc-content" id="vc-screen"></main>
+      </div>
+    </div>
+    <footer class="vc-footer">Piloto VT-01 · Los datos de prueba se eliminan automáticamente</footer>
+  </article>
+  <div class="vc-live" id="vc-live" aria-live="polite"></div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById("vt-citizen-preview");
+  var screen = document.getElementById("vc-screen");
+  var state = {
+    view: "home", returnView: "home", lang: "es", type: "dana", photo: false, photoDraft: false, location: false,
+    locationAge: 0, consent: null, checkin: "help", persons: 1, need: "none", silent: false,
+    status: 0, queued: false, seconds: 0, caseTime: "10:42", instructionRead: false,
+    messageSent: false, statusUpdate: null, videoRequested: false, videoStarted: false, lowCoverage: false,
+    connectedMode: false, caseReference: "VT-2041", caseClientRequestId: "", remoteInstruction: "",
+    alertScenario: "dana", contrast: false, largeText: false, note: "",
+    drawerOpen: false, infoView: null, notifications: true, locationPermission: "ask",
+    selectedZone: "north-coast", infoUpdated: "13/09/2026 · 09:05", cacheUpdated: "13/09/2026 · 08:55", publicAcknowledged: false,
+    publicFormOpen: false, publicApplicable: true, publicReceived: false, publicUnderstood: null, publicCanAct: null, publicNeedsHelp: null,
+    publicReasons: [], publicPersons: 1, publicPrecision: "zone", publicSharing: false, publicSubmitted: false,
+    publicSync: "idle", publicTime: "", publicReference: "", publicClientRequestId: "", publicUpdated: "", publicListening: false, publicError: ""
+  };
+  var timer;
+  var L = {
+    es: {
+      app:"Aplicación ciudadana de València Resiliente", sub:"Acceso ciudadano temporal", language:"Idioma", accessOn:"Activar texto grande", accessOff:"Desactivar texto grande", foot:"Piloto VT-01 · Datos de prueba con retención limitada", online:"Con cobertura · cifrado", low:"Cobertura limitada · reintento activo",
+      test:"PRUEBA", danaTag:"DANA · SIMULACIÓN", danaTitle:"Riesgo de inundación", danaCopy:"Evita desplazamientos, cauces y zonas bajas. Sigue siempre las indicaciones oficiales.", fireTag:"INCENDIO · SIMULACIÓN", fireTitle:"Humo en zona urbana", fireCopy:"Cierra puertas y ventanas. Evita acercarte y sigue las indicaciones oficiales.",
+      danger:"¿Existe peligro inmediato?", official:"Contacta con el servicio oficial de emergencias.", call:"Llamar al 112", callLabel:"Abrir el marcador con el 112. Tú debes iniciar la llamada", separate:"Abre el marcador para que tú inicies la llamada. VT-01 no puede saber si la llamada conecta ni recibe automáticamente tu GPS o fotografía.",
+      share:"Documenta la situación", pilot:"Central piloto VT-01", photo:"Hacer foto ahora", photoReady:"Foto preparada", photoDraft:"Foto pendiente de confirmar", readyCopy:"Pendiente de enviar con el aviso", preview:"Previsualización de la situación", photoDecision:"Confirma o descarta la foto antes de enviar el aviso.", discard:"Descartar", confirmPreview:"Confirmar foto", photoConfirmed:"Foto confirmada y preparada para enviar", photoDiscarded:"Foto descartada", camera:"Cámara trasera al confirmar", photoSent:"Foto recibida por central", location:"Mi ubicación actual", locationReady:"Ubicación obtenida", ask:"Pide permiso al confirmar",
+      what:"¿Qué está ocurriendo?", dana:"Inundación", rain:"Lluvia intensa", fire:"Incendio", other:"Otra emergencia", describe:"Descripción breve", placeholder:"Ej.: el agua está entrando en el portal…",
+      optional:"Personas, necesidades y accesibilidad (opcional)", state:"Confirma tu estado", safe:"Estoy a salvo", help:"Necesito ayuda", trapped:"No puedo evacuar", people:"Personas afectadas", need:"Necesidad crítica", none:"Ninguna indicada", medication:"Medicación urgente", mobility:"Movilidad reducida", medical:"Atención médica", dependent:"Persona dependiente", silent:"No puedo hablar; usar canal escrito",
+      send:"Enviar aviso a VT-01", without:"Puedes enviarlo aunque no compartas fotografía ni ubicación.", ready:"Sin envíos pendientes", retryNote:"Si se corta la red, el aviso se guarda y reintenta automáticamente.", queued:"Aviso guardado en el teléfono", queuedCopy:"Texto y GPS pendientes. La fotografía se enviará después para ahorrar conexión.", retry:"Reintentar ahora",
+      allowPhoto:"Abrir la cámara", allowLocation:"Compartir ubicación", photoConsent:"La cámara solo se abre después de esta confirmación. La fotografía se vincula al aviso de prueba.", locationConsent:"Se compartirán posición, precisión y antigüedad mientras el aviso esté abierto.", only:"Se envía únicamente a Central VT-01 y podrás retirarlo.", confirmPhoto:"Abrir cámara y preparar foto", confirmLocation:"Autorizar ubicación", back:"Volver sin compartir",
+      received:"Recibido", seen:"Visto por central", accepted:"Aceptado", closed:"Cerrado", pending:"Pendiente", waiting:"Esperando confirmación de la central", reviewing:"Un operador está revisando tu caso", closedTitle:"Caso cerrado", reference:"Referencia", sent:"enviado", keep:"Mantén esta pantalla abierta", assigned:"Operador asignado",
+      locationShared:"Ubicación compartida", accuracy:"Precisión ±12 m", age:"antigüedad", now:"ahora", update:"Actualizar", stop:"Dejar de compartir", current:"Actualiza tu estado", written:"Canal escrito activo", msgPlaceholder:"Escribe un mensaje para la central…", sendMsg:"Enviar mensaje", delivered:"Mensaje entregado",
+      instruction:"Indicación de Central VT-01", instructionText:"Permanece en una planta alta y aléjate del garaje. No uses el ascensor.", markRead:"Confirmar que la he leído", read:"Leída y confirmada",
+      videoOff:"Vídeo · no solicitado", videoOffHint:"Deshabilitado hasta que lo pida el operador", videoOn:"Iniciar vídeo solicitado", videoOnHint:"Solicitud explícita de Central VT-01", videoActive:"Vídeo de prueba activo",
+      worse:"¿Empeora la situación?", stillHelp:"Sigo necesitando ayuda", worsened:"Mi situación ha empeorado", stillConfirmed:"Central notificada: sigues necesitando ayuda.", worsenedConfirmed:"Central notificada: tu situación ha empeorado.", demo:"Acciones de la demostración", closeDemo:"Simular cierre desde la central", newReport:"Crear otro aviso", closedCopy:"La cronología y las evidencias quedan vinculadas a la referencia.", privacy:"Tú controlas cámara y GPS. VT-01 complementa la comunicación, pero no sustituye al 112."
+    },
+    val: {
+      app:"Aplicació ciutadana de València Resilient", sub:"Accés ciutadà temporal", language:"Idioma", accessOn:"Activar text gran", accessOff:"Desactivar text gran", foot:"Pilot VT-01 · Dades de prova amb retenció limitada", online:"Amb cobertura · xifrat", low:"Cobertura limitada · reintent actiu",
+      test:"PROVA", danaTag:"DANA · SIMULACIÓ", danaTitle:"Risc d'inundació", danaCopy:"Evita desplaçaments, barrancs i zones baixes. Segueix sempre les indicacions oficials.", fireTag:"INCENDI · SIMULACIÓ", fireTitle:"Fum en zona urbana", fireCopy:"Tanca portes i finestres. No t'acostes i segueix les indicacions oficials.",
+      danger:"Hi ha perill immediat?", official:"Contacta amb el servei oficial d'emergències.", call:"Telefonar al 112", callLabel:"Obrir el marcador amb el 112. Tu has d'iniciar la telefonada", separate:"Obri el marcador perquè tu inicies la telefonada. VT-01 no pot saber si la telefonada connecta ni rep automàticament el teu GPS o fotografia.",
+      share:"Documenta la situació", pilot:"Central pilot VT-01", photo:"Fer una foto ara", photoReady:"Foto preparada", photoDraft:"Foto pendent de confirmar", readyCopy:"Pendent d’enviar amb l’avís", preview:"Previsualització de la situació", photoDecision:"Confirma o descarta la foto abans d'enviar l'avís.", discard:"Descartar", confirmPreview:"Confirmar foto", photoConfirmed:"Foto confirmada i preparada per a enviar", photoDiscarded:"Foto descartada", camera:"Càmera posterior en confirmar", photoSent:"Foto rebuda per central", location:"La meua ubicació actual", locationReady:"Ubicació obtinguda", ask:"Demana permís en confirmar",
+      what:"Què està passant?", dana:"Inundació", rain:"Pluja intensa", fire:"Incendi", other:"Una altra emergència", describe:"Descripció breu", placeholder:"Ex.: l'aigua està entrant al portal…",
+      optional:"Persones, necessitats i accessibilitat (opcional)", state:"Confirma el teu estat", safe:"Estic fora de perill", help:"Necessite ajuda", trapped:"No puc evacuar", people:"Persones afectades", need:"Necessitat crítica", none:"Cap indicada", medication:"Medicació urgent", mobility:"Mobilitat reduïda", medical:"Atenció mèdica", dependent:"Persona dependent", silent:"No puc parlar; usar el canal escrit",
+      send:"Enviar avís a VT-01", without:"Pots enviar-lo encara que no compartisques fotografia ni ubicació.", ready:"Sense enviaments pendents", retryNote:"Si es talla la xarxa, l'avís es guarda i es reintenta automàticament.", queued:"Avís guardat en el telèfon", queuedCopy:"Text i GPS pendents. La fotografia s'enviarà després per a estalviar connexió.", retry:"Reintentar ara",
+      allowPhoto:"Obrir la càmera", allowLocation:"Compartir ubicació", photoConsent:"La càmera només s'obri després d'aquesta confirmació. La fotografia es vincula a l'avís de prova.", locationConsent:"Es compartiran posició, precisió i antiguitat mentre l'avís estiga obert.", only:"S'envia únicament a Central VT-01 i podràs retirar-lo.", confirmPhoto:"Obrir càmera i preparar foto", confirmLocation:"Autoritzar ubicació", back:"Tornar sense compartir",
+      received:"Rebut", seen:"Vist per central", accepted:"Acceptat", closed:"Tancat", pending:"Pendent", waiting:"Esperant confirmació de la central", reviewing:"Un operador està revisant el teu cas", closedTitle:"Cas tancat", reference:"Referència", sent:"enviat", keep:"Mantín aquesta pantalla oberta", assigned:"Operador assignat",
+      locationShared:"Ubicació compartida", accuracy:"Precisió ±12 m", age:"antiguitat", now:"ara", update:"Actualitzar", stop:"Deixar de compartir", current:"Actualitza el teu estat", written:"Canal escrit actiu", msgPlaceholder:"Escriu un missatge per a la central…", sendMsg:"Enviar missatge", delivered:"Missatge entregat",
+      instruction:"Indicació de Central VT-01", instructionText:"Roman en una planta alta i allunya't del garatge. No uses l'ascensor.", markRead:"Confirmar que l'he llegida", read:"Llegida i confirmada",
+      videoOff:"Vídeo · no sol·licitat", videoOffHint:"Desactivat fins que ho demane l'operador", videoOn:"Iniciar vídeo sol·licitat", videoOnHint:"Petició explícita de Central VT-01", videoActive:"Vídeo de prova actiu",
+      worse:"Empitjora la situació?", stillHelp:"Encara necessite ajuda", worsened:"La meua situació ha empitjorat", stillConfirmed:"Central notificada: encara necessites ajuda.", worsenedConfirmed:"Central notificada: la teua situació ha empitjorat.", demo:"Accions de la demostració", closeDemo:"Simular tancament des de la central", newReport:"Crear un altre avís", closedCopy:"La cronologia i les evidències queden vinculades a la referència.", privacy:"Tu controles càmera i GPS. VT-01 complementa la comunicació, però no substitueix el 112."
+    },
+    en: {
+      app:"València Resiliente citizen application", sub:"Temporary citizen access", language:"Language", accessOn:"Enable large text", accessOff:"Disable large text", foot:"VT-01 pilot · Test data with limited retention", online:"Online · encrypted", low:"Limited coverage · automatic retry",
+      test:"TEST", danaTag:"FLASH FLOOD · SIMULATION", danaTitle:"Flood risk", danaCopy:"Avoid travel, waterways and low areas. Always follow official instructions.", fireTag:"FIRE · SIMULATION", fireTitle:"Smoke in an urban area", fireCopy:"Close doors and windows. Stay away and follow official instructions.",
+      danger:"Is anyone in immediate danger?", official:"Contact the official emergency service.", call:"Call 112", callLabel:"Open the dialer with 112. You must start the call", separate:"This opens the dialer for you to start the call. VT-01 cannot know whether the call connects and does not automatically send your GPS or photo.",
+      share:"Document the situation", pilot:"VT-01 pilot centre", photo:"Take a photo now", photoReady:"Photo ready", photoDraft:"Photo pending confirmation", readyCopy:"Pending upload with the report", preview:"Situation preview", photoDecision:"Confirm or discard the photo before sending the report.", discard:"Discard", confirmPreview:"Confirm photo", photoConfirmed:"Photo confirmed and ready to send", photoDiscarded:"Photo discarded", camera:"Rear camera after confirmation", photoSent:"Photo received by centre", location:"My current location", locationReady:"Location obtained", ask:"Asks permission after confirmation",
+      what:"What is happening?", dana:"Flood", rain:"Heavy rain", fire:"Fire", other:"Other emergency", describe:"Brief description", placeholder:"Example: water is entering the building…",
+      optional:"People, needs and accessibility (optional)", state:"Confirm your status", safe:"I am safe", help:"I need help", trapped:"I cannot evacuate", people:"People affected", need:"Critical need", none:"None reported", medication:"Urgent medication", mobility:"Reduced mobility", medical:"Medical attention", dependent:"Dependent person", silent:"I cannot speak; use written messages",
+      send:"Send report to VT-01", without:"You can send it without sharing a photo or location.", ready:"No pending messages", retryNote:"If the network drops, the report is stored and retried automatically.", queued:"Report saved on this phone", queuedCopy:"Text and GPS are pending. The photo will upload later to save bandwidth.", retry:"Retry now",
+      allowPhoto:"Open the camera", allowLocation:"Share location", photoConsent:"The camera opens only after this confirmation. The photo is linked to this test report.", locationConsent:"Position, accuracy and age are shared while this report is open.", only:"Sent only to the VT-01 centre; you can remove it.", confirmPhoto:"Open camera and prepare photo", confirmLocation:"Allow location", back:"Go back without sharing",
+      received:"Received", seen:"Seen by centre", accepted:"Accepted", closed:"Closed", pending:"Pending", waiting:"Waiting for centre confirmation", reviewing:"An operator is reviewing your case", closedTitle:"Case closed", reference:"Reference", sent:"sent", keep:"Keep this screen open", assigned:"Operator assigned",
+      locationShared:"Location shared", accuracy:"Accuracy ±12 m", age:"age", now:"now", update:"Update", stop:"Stop sharing", current:"Update your status", written:"Written channel active", msgPlaceholder:"Write a message to the centre…", sendMsg:"Send message", delivered:"Message delivered",
+      instruction:"Instruction from the VT-01 centre", instructionText:"Stay on an upper floor and keep away from the garage. Do not use the lift.", markRead:"Confirm I have read this", read:"Read and confirmed",
+      videoOff:"Video · not requested", videoOffHint:"Disabled until requested by the operator", videoOn:"Start requested video", videoOnHint:"Explicit request from the VT-01 centre", videoActive:"Test video active",
+      worse:"Is the situation worsening?", stillHelp:"I still need help", worsened:"My situation has worsened", stillConfirmed:"Centre notified: you still need help.", worsenedConfirmed:"Centre notified: your situation has worsened.", demo:"Demo actions", closeDemo:"Simulate closure by the centre", newReport:"Create another report", closedCopy:"The timeline and evidence remain linked to the reference.", privacy:"You control the camera and GPS. VT-01 complements communication but does not replace 112."
+    }
+  };
+  var M = {
+    es: {
+      navTitle:"Información y ajustes", openMenu:"Abrir información y configuración", closeMenu:"Cerrar menú", home:"Inicio", weather:"Tiempo actual", warnings:"Avisos meteorológicos", fires:"Incendios", emergencies:"Emergencias", traffic:"Tráfico", publicAlerts:"Alertas a la población", officialNews:"Noticias oficiales", settings:"Configuración", refresh:"Refrescar", lastUpdate:"Actualizado", simulation:"SIMULACIÓN / DEMO", simulatedData:"Datos preparados para demostrar el flujo; no son avisos en tiempo real.", call112Short:"Llamar 112", reportVT:"Enviar aviso VT-01", returnCase:"Volver a mi aviso", offlineCache:"Sin red · mostrando copia guardada", onlineCache:"Información guardada para uso sin conexión", cachedAt:"Copia local",
+      weatherTitle:"Tiempo actual", weatherCopy:"Resumen para tu zona consentida", weatherZone:"Poblats Marítims · València", partlyCloudy:"Intervalos nubosos", feels:"Sensación", humidity:"Humedad", wind:"Viento", locationNeeded:"Autoriza la ubicación solo si quieres recibir información de tu zona. No inicia ningún aviso.", configureLocation:"Configurar ubicación", viewWarnings:"Ver avisos por zonas",
+      warningsTitle:"Avisos por zonas", warningsCopy:"Semáforo meteorológico del piloto", noRisk:"Sin riesgo", lowRisk:"Riesgo bajo", importantRisk:"Riesgo importante", extremeRisk:"Riesgo extremo", northCoast:"Litoral norte de Valencia", southCoast:"Litoral sur de Valencia", northInterior:"Interior norte de Valencia", southInterior:"Interior sur de Valencia", rainStorm:"Lluvia y tormentas", selectedZone:"Zona seleccionada", validDemo:"Vigencia de ejercicio: hasta 18:00",
+      firesTitle:"Incendios", firesCopy:"Seguimiento territorial del piloto", monitored:"En vigilancia", controlled:"Controlado", fireOne:"Conato de vegetación en El Saler", fireOneCopy:"Medios preventivos en la zona. Sin orden de evacuación.", fireTwo:"Humo notificado en Campanar", fireTwoCopy:"Aviso ciudadano en verificación por la central.",
+      emergenciesTitle:"Emergencias", emergenciesCopy:"Incidencias públicas relevantes", emergencyOne:"Achique de agua en el Cabanyal", emergencyOneCopy:"Paso peatonal cerrado de forma preventiva.", emergencyTwo:"Asistencia sanitaria en Benimaclet", emergencyTwoCopy:"Recurso asignado; evita la zona de intervención.",
+      trafficTitle:"Tráfico", trafficCopy:"Afecciones que pueden alterar rutas de evacuación", trafficOne:"Retenciones en V-30", trafficOneCopy:"Carril derecho cerrado en sentido puerto.", trafficTwo:"Paso inferior CV-500", trafficTwoCopy:"Acceso restringido por acumulación de agua.",
+      publicTitle:"Alertas a la población", publicCopy:"Mensajes prioritarios del ejercicio", publicOne:"Riesgo de lluvia intensa en el litoral", publicOneCopy:"Evita barrancos, garajes y desplazamientos innecesarios. Sigue los canales oficiales.", acknowledge:"He leído el aviso", acknowledged:"Aviso leído",
+      newsTitle:"Noticias oficiales", newsCopy:"Vista previa del canal previsto", xSource:"Canal GVA 112 en X", xDemo:"Enlace a la cuenta oficial externa. Las tarjetas inferiores siguen siendo datos de demostración.", xOpen:"Abrir @GVA112 en X", newsOne:"Seguimiento de lluvias en el litoral", newsOneCopy:"Equipos de coordinación revisan zonas sensibles del ejercicio.", newsTwo:"Consejos ante riesgo de incendio", newsTwoCopy:"Mantén libres los accesos y comunica humo visible sin acercarte.",
+      settingsTitle:"Configuración", settingsCopy:"Preferencias guardadas en este dispositivo", notifications:"Notificaciones", notificationsCopy:"Recibir alertas del piloto por zona", language:"Idioma", locationPermission:"Permiso de ubicación", locationCopy:"Solo al usar la app; se solicita antes de compartir", askEveryTime:"Preguntar siempre", granted:"Permitido al usar", denied:"No permitido", accessibility:"Accesibilidad", largeText:"Texto grande", highContrast:"Contraste reforzado", privacyAbout:"Privacidad y acerca de", privacyCopy:"VT-01 es un piloto. Cámara y GPS requieren acción y consentimiento. Los avisos oficiales siguen llegando por los canales públicos.", cacheTitle:"Disponibilidad sin conexión", refreshCache:"Actualizar copia local", refreshDone:"Copia local actualizada", refreshOffline:"Sin conexión: se mantiene la última copia disponible."
+    },
+    val: {
+      navTitle:"Informació i ajustos", openMenu:"Obrir informació i configuració", closeMenu:"Tancar menú", home:"Inici", weather:"Temps actual", warnings:"Avisos meteorològics", fires:"Incendis", emergencies:"Emergències", traffic:"Trànsit", publicAlerts:"Alertes a la població", officialNews:"Notícies oficials", settings:"Configuració", refresh:"Actualitzar", lastUpdate:"Actualitzat", simulation:"SIMULACIÓ / DEMO", simulatedData:"Dades preparades per a demostrar el flux; no són avisos en temps real.", call112Short:"Telefonar 112", reportVT:"Enviar avís VT-01", returnCase:"Tornar al meu avís", offlineCache:"Sense xarxa · mostrant còpia guardada", onlineCache:"Informació guardada per a usar sense connexió", cachedAt:"Còpia local",
+      weatherTitle:"Temps actual", weatherCopy:"Resum per a la teua zona consentida", weatherZone:"Poblats Marítims · València", partlyCloudy:"Intervals nuvolosos", feels:"Sensació", humidity:"Humitat", wind:"Vent", locationNeeded:"Autoritza la ubicació només si vols rebre informació de la teua zona. No inicia cap avís.", configureLocation:"Configurar ubicació", viewWarnings:"Veure avisos per zones",
+      warningsTitle:"Avisos per zones", warningsCopy:"Semàfor meteorològic del pilot", noRisk:"Sense risc", lowRisk:"Risc baix", importantRisk:"Risc important", extremeRisk:"Risc extrem", northCoast:"Litoral nord de València", southCoast:"Litoral sud de València", northInterior:"Interior nord de València", southInterior:"Interior sud de València", rainStorm:"Pluja i tempestes", selectedZone:"Zona seleccionada", validDemo:"Vigència de l'exercici: fins a les 18:00",
+      firesTitle:"Incendis", firesCopy:"Seguiment territorial del pilot", monitored:"En vigilància", controlled:"Controlat", fireOne:"Conat de vegetació al Saler", fireOneCopy:"Mitjans preventius a la zona. Sense ordre d'evacuació.", fireTwo:"Fum notificat a Campanar", fireTwoCopy:"Avís ciutadà en verificació per la central.",
+      emergenciesTitle:"Emergències", emergenciesCopy:"Incidències públiques rellevants", emergencyOne:"Extracció d'aigua al Cabanyal", emergencyOneCopy:"Pas de vianants tancat preventivament.", emergencyTwo:"Assistència sanitària a Benimaclet", emergencyTwoCopy:"Recurs assignat; evita la zona d'intervenció.",
+      trafficTitle:"Trànsit", trafficCopy:"Afeccions que poden alterar rutes d'evacuació", trafficOne:"Retencions en V-30", trafficOneCopy:"Carril dret tancat en sentit port.", trafficTwo:"Pas inferior CV-500", trafficTwoCopy:"Accés restringit per acumulació d'aigua.",
+      publicTitle:"Alertes a la població", publicCopy:"Missatges prioritaris de l'exercici", publicOne:"Risc de pluja intensa al litoral", publicOneCopy:"Evita barrancs, garatges i desplaçaments innecessaris. Segueix els canals oficials.", acknowledge:"He llegit l'avís", acknowledged:"Avís llegit",
+      newsTitle:"Notícies oficials", newsCopy:"Vista prèvia del canal previst", xSource:"Canal GVA 112 en X", xDemo:"Enllaç al compte oficial extern. Les targetes inferiors continuen sent dades de demostració.", xOpen:"Obrir @GVA112 en X", newsOne:"Seguiment de pluges al litoral", newsOneCopy:"Els equips de coordinació revisen zones sensibles de l'exercici.", newsTwo:"Consells davant risc d'incendi", newsTwoCopy:"Mantín lliures els accessos i comunica fum visible sense acostar-te.",
+      settingsTitle:"Configuració", settingsCopy:"Preferències guardades en este dispositiu", notifications:"Notificacions", notificationsCopy:"Rebre alertes del pilot per zona", language:"Idioma", locationPermission:"Permís d'ubicació", locationCopy:"Només en usar l'app; es demana abans de compartir", askEveryTime:"Preguntar sempre", granted:"Permés en usar", denied:"No permés", accessibility:"Accessibilitat", largeText:"Text gran", highContrast:"Contrast reforçat", privacyAbout:"Privacitat i sobre", privacyCopy:"VT-01 és un pilot. Càmera i GPS requerixen acció i consentiment. Els avisos oficials continuen arribant pels canals públics.", cacheTitle:"Disponibilitat sense connexió", refreshCache:"Actualitzar còpia local", refreshDone:"Còpia local actualitzada", refreshOffline:"Sense connexió: es conserva l'última còpia disponible."
+    },
+    en: {
+      navTitle:"Information and settings", openMenu:"Open information and settings", closeMenu:"Close menu", home:"Home", weather:"Current weather", warnings:"Weather warnings", fires:"Fires", emergencies:"Emergencies", traffic:"Traffic", publicAlerts:"Public alerts", officialNews:"Official news", settings:"Settings", refresh:"Refresh", lastUpdate:"Updated", simulation:"SIMULATION / DEMO", simulatedData:"Prepared data for demonstrating the flow; these are not live alerts.", call112Short:"Call 112", reportVT:"Send VT-01 report", returnCase:"Return to my report", offlineCache:"Offline · showing saved copy", onlineCache:"Information saved for offline use", cachedAt:"Local copy",
+      weatherTitle:"Current weather", weatherCopy:"Summary for your consented area", weatherZone:"Poblats Marítims · València", partlyCloudy:"Partly cloudy", feels:"Feels like", humidity:"Humidity", wind:"Wind", locationNeeded:"Allow location only if you want information for your area. This does not start a report.", configureLocation:"Configure location", viewWarnings:"View warnings by area",
+      warningsTitle:"Warnings by area", warningsCopy:"Pilot weather risk levels", noRisk:"No risk", lowRisk:"Low risk", importantRisk:"Important risk", extremeRisk:"Extreme risk", northCoast:"Northern València coast", southCoast:"Southern València coast", northInterior:"Northern València inland", southInterior:"Southern València inland", rainStorm:"Rain and storms", selectedZone:"Selected area", validDemo:"Exercise validity: until 18:00",
+      firesTitle:"Fires", firesCopy:"Pilot territorial monitoring", monitored:"Under watch", controlled:"Controlled", fireOne:"Vegetation fire start in El Saler", fireOneCopy:"Preventive resources in the area. No evacuation order.", fireTwo:"Smoke reported in Campanar", fireTwoCopy:"Citizen report being checked by the centre.",
+      emergenciesTitle:"Emergencies", emergenciesCopy:"Relevant public incidents", emergencyOne:"Water pumping in Cabanyal", emergencyOneCopy:"Pedestrian access closed as a precaution.", emergencyTwo:"Medical assistance in Benimaclet", emergencyTwoCopy:"Resource assigned; avoid the intervention area.",
+      trafficTitle:"Traffic", trafficCopy:"Disruptions that may affect evacuation routes", trafficOne:"Congestion on V-30", trafficOneCopy:"Right lane closed towards the port.", trafficTwo:"CV-500 underpass", trafficTwoCopy:"Access restricted due to accumulated water.",
+      publicTitle:"Public alerts", publicCopy:"Priority messages in the exercise", publicOne:"Heavy rain risk on the coast", publicOneCopy:"Avoid ravines, garages and unnecessary travel. Follow official public channels.", acknowledge:"I have read the alert", acknowledged:"Alert read",
+      newsTitle:"Official news", newsCopy:"Preview of the intended channel", xSource:"GVA 112 channel on X", xDemo:"Link to the official external account. The cards below remain demonstration data.", xOpen:"Open @GVA112 on X", newsOne:"Coastal rain monitoring", newsOneCopy:"Coordination teams are reviewing sensitive areas in the exercise.", newsTwo:"Fire-risk guidance", newsTwoCopy:"Keep access routes clear and report visible smoke without approaching.",
+      settingsTitle:"Settings", settingsCopy:"Preferences saved on this device", notifications:"Notifications", notificationsCopy:"Receive pilot alerts for your area", language:"Language", locationPermission:"Location permission", locationCopy:"Only while using the app; requested before sharing", askEveryTime:"Ask every time", granted:"Allowed while using", denied:"Not allowed", accessibility:"Accessibility", largeText:"Large text", highContrast:"Enhanced contrast", privacyAbout:"Privacy and about", privacyCopy:"VT-01 is a pilot. Camera and GPS require your action and consent. Official alerts continue through public channels.", cacheTitle:"Offline availability", refreshCache:"Update local copy", refreshDone:"Local copy updated", refreshOffline:"Offline: the latest available copy remains on this device."
+    }
+  };
+
+  var C = {
+    es: {
+      hypothesis:"HIPÓTESIS · POR VALIDAR CON 112CV", entryTitle:"¿Has recibido esta alerta pública?", entryCopy:"En menos de un minuto puedes indicar si la entiendes y si puedes actuar.", open:"Responder al aviso", independent:"Check-in de población · separado del aviso VT-01", title:"Respuesta tras la alerta", copy:"Ayuda a conocer la situación general de la zona después de un aviso público.", receivedAlert:"He recibido esta alerta", understoodQ:"¿Has entendido qué debes hacer?", yesUnderstood:"Sí, la entiendo", noUnderstood:"No la entiendo", actQ:"¿Puedes seguir las indicaciones?", yesAct:"Sí, puedo actuar", noAct:"No puedo actuar", helpQ:"¿Necesitas asistencia?", yesHelp:"Sí, necesito ayuda", noHelp:"No necesito ayuda",
+      reasonsTitle:"¿Qué te impide actuar?", reasonsCopy:"Puedes marcar varios motivos. Son opcionales.", mobilityReason:"Movilidad reducida", transportReason:"Falta de transporte", dependentsReason:"Menores o dependientes", medicationReason:"Medicación o atención", blockedReason:"Ruta bloqueada o inundada", otherReason:"Otro motivo", preferNot:"Prefiero no decirlo", peopleCount:"Personas en esta situación", simpleTitle:"Indicaciones sencillas", simpleInstructions:"Aléjate de zonas bajas y garajes. Sube a una planta segura. No cruces agua en movimiento. Sigue los canales oficiales.", listen:"Escuchar indicaciones", stopListening:"Detener lectura simulada", listening:"Lectura accesible simulada en curso",
+      locationTitle:"Ubicación que quieres compartir", locationCopy:"Elige la precisión. Puedes responder sin compartir la posición del dispositivo.", precisionZone:"Solo zona", precisionStreet:"Calle", precisionBuilding:"Edificio", precisionExact:"Ubicación exacta", locationConsent:"Autorizo compartir esta precisión con la central durante la alerta", noDeviceLocation:"Sin ubicación del dispositivo; la respuesta solo se asocia a la zona del aviso.", purposeTitle:"Uso y minimización de datos", purposeCopy:"Se utiliza para estimar comprensión, capacidad de actuar y necesidad de apoyo por zona. No pedimos nombre, documento de identidad ni diagnóstico.", retention:"En la demo se elimina o anonimiza 24 horas después de cerrar o expirar la alerta. El plazo debe validarse antes del piloto real.", noAutoDispatch:"Esta respuesta no sustituye al 112 ni crea un envío automático de recursos.", required:"Completa las cuatro respuestas principales para enviar el check-in.", submit:"Enviar respuesta", cancel:"Ahora no", notApplicable:"No estoy en la zona / no me corresponde", notApplicableHint:"Esta opción se registra aparte y no se cuenta como necesidad operativa en la zona.",
+      receiptTitle:"Respuesta recibida", queuedTitle:"Respuesta guardada en el teléfono", receiptCopy:"La central la ve agregada por zona y, si solicitas ayuda, puede abrir solo el detalle necesario. Siempre se distingue de una estimación.", queuedCopy:"Se enviará automáticamente cuando vuelva la cobertura.", reference:"Referencia", sentAt:"Hora", lastChanged:"Última actualización", sync:"Sincronización", syncReceived:"Recibida por central", syncPending:"Pendiente de enviar", update:"Actualizar respuesta", precisionShared:"Precisión compartida", stopSharing:"Dejar de compartir ubicación", sharingStopped:"Ubicación retirada", retry:"Reintentar ahora", retryDone:"Respuesta sincronizada", delete:"Borrar mi respuesta", deleted:"Respuesta eliminada de este dispositivo", closeExpiry:"En la demo se elimina o anonimiza 24 horas después del cierre o expiración.", summaryUnderstood:"Alerta entendida", summaryNotUnderstood:"Alerta no entendida", summaryCanAct:"Puede actuar", summaryCannotAct:"No puede actuar", summaryHelp:"Necesita ayuda", summaryNoHelp:"No necesita ayuda", formReopened:"Puedes actualizar y volver a enviar tu respuesta.", statusLabel:"Estado", alertZone:"Litoral norte de Valencia"
+    },
+    val: {
+      hypothesis:"HIPÒTESI · PER VALIDAR AMB 112CV", entryTitle:"Has rebut esta alerta pública?", entryCopy:"En menys d'un minut pots indicar si l'entens i si pots actuar.", open:"Respondre a l'avís", independent:"Check-in de població · separat de l'avís VT-01", title:"Resposta després de l'alerta", copy:"Ajuda a conéixer la situació general de la zona després d'un avís públic.", receivedAlert:"He rebut esta alerta", understoodQ:"Has entés què has de fer?", yesUnderstood:"Sí, l'entenc", noUnderstood:"No l'entenc", actQ:"Pots seguir les indicacions?", yesAct:"Sí, puc actuar", noAct:"No puc actuar", helpQ:"Necessites assistència?", yesHelp:"Sí, necessite ajuda", noHelp:"No necessite ajuda",
+      reasonsTitle:"Què t'impedix actuar?", reasonsCopy:"Pots marcar diversos motius. Són opcionals.", mobilityReason:"Mobilitat reduïda", transportReason:"Falta de transport", dependentsReason:"Menors o dependents", medicationReason:"Medicació o atenció", blockedReason:"Ruta bloquejada o inundada", otherReason:"Un altre motiu", preferNot:"Preferisc no dir-ho", peopleCount:"Persones en esta situació", simpleTitle:"Indicacions senzilles", simpleInstructions:"Allunya't de zones baixes i garatges. Puja a una planta segura. No travesses aigua en moviment. Segueix els canals oficials.", listen:"Escoltar indicacions", stopListening:"Detindre lectura simulada", listening:"Lectura accessible simulada en curs",
+      locationTitle:"Ubicació que vols compartir", locationCopy:"Tria la precisió. Pots respondre sense compartir la posició del dispositiu.", precisionZone:"Només zona", precisionStreet:"Carrer", precisionBuilding:"Edifici", precisionExact:"Ubicació exacta", locationConsent:"Autoritze compartir esta precisió amb la central durant l'alerta", noDeviceLocation:"Sense ubicació del dispositiu; la resposta només s'associa a la zona de l'avís.", purposeTitle:"Ús i minimització de dades", purposeCopy:"S'utilitza per a estimar comprensió, capacitat d'actuar i necessitat de suport per zona. No demanem nom, document d'identitat ni diagnòstic.", retention:"En la demo s'elimina o anonimitza 24 hores després de tancar o expirar l'alerta. El termini s'ha de validar abans del pilot real.", noAutoDispatch:"Esta resposta no substituïx el 112 ni crea un enviament automàtic de recursos.", required:"Completa les quatre respostes principals per a enviar el check-in.", submit:"Enviar resposta", cancel:"Ara no", notApplicable:"No estic en la zona / no em correspon", notApplicableHint:"Esta opció es registra a banda i no compta com a necessitat operativa en la zona.",
+      receiptTitle:"Resposta rebuda", queuedTitle:"Resposta guardada en el telèfon", receiptCopy:"La central la veu agregada per zona i, si demanes ajuda, pot obrir només el detall necessari. Sempre es distingix d'una estimació.", queuedCopy:"S'enviarà automàticament quan torne la cobertura.", reference:"Referència", sentAt:"Hora", lastChanged:"Última actualització", sync:"Sincronització", syncReceived:"Rebuda per la central", syncPending:"Pendent d'enviar", update:"Actualitzar resposta", precisionShared:"Precisió compartida", stopSharing:"Deixar de compartir ubicació", sharingStopped:"Ubicació retirada", retry:"Reintentar ara", retryDone:"Resposta sincronitzada", delete:"Esborrar la meua resposta", deleted:"Resposta eliminada d'este dispositiu", closeExpiry:"En la demo s'elimina o anonimitza 24 hores després del tancament o expiració.", summaryUnderstood:"Alerta entesa", summaryNotUnderstood:"Alerta no entesa", summaryCanAct:"Pot actuar", summaryCannotAct:"No pot actuar", summaryHelp:"Necessita ajuda", summaryNoHelp:"No necessita ajuda", formReopened:"Pots actualitzar i tornar a enviar la teua resposta.", statusLabel:"Estat", alertZone:"Litoral nord de València"
+    },
+    en: {
+      hypothesis:"HYPOTHESIS · TO VALIDATE WITH 112CV", entryTitle:"Did you receive this public alert?", entryCopy:"In under a minute, tell us whether you understand it and can act.", open:"Respond to the alert", independent:"Population check-in · separate from the VT-01 report", title:"Response after the alert", copy:"Helps show the general situation in the area after a public warning.", receivedAlert:"I received this alert", understoodQ:"Do you understand what to do?", yesUnderstood:"Yes, I understand", noUnderstood:"No, I do not understand", actQ:"Can you follow the instructions?", yesAct:"Yes, I can act", noAct:"I cannot act", helpQ:"Do you need assistance?", yesHelp:"Yes, I need help", noHelp:"I do not need help",
+      reasonsTitle:"What prevents you from acting?", reasonsCopy:"You may select several optional reasons.", mobilityReason:"Reduced mobility", transportReason:"No transport", dependentsReason:"Children or dependants", medicationReason:"Medication or care", blockedReason:"Blocked or flooded route", otherReason:"Another reason", preferNot:"Prefer not to say", peopleCount:"People in this situation", simpleTitle:"Simple instructions", simpleInstructions:"Move away from low areas and garages. Go to a safe upper floor. Do not cross moving water. Follow official channels.", listen:"Listen to instructions", stopListening:"Stop simulated reading", listening:"Simulated accessible reading in progress",
+      locationTitle:"Location you want to share", locationCopy:"Choose the precision. You can respond without sharing your device position.", precisionZone:"Area only", precisionStreet:"Street", precisionBuilding:"Building", precisionExact:"Exact location", locationConsent:"I allow this precision to be shared with the centre during the alert", noDeviceLocation:"No device location; the response is linked only to the alert area.", purposeTitle:"Purpose and data minimisation", purposeCopy:"Used to estimate understanding, ability to act and support needs by area. We do not ask for a name, identity document or diagnosis.", retention:"In the demo it is deleted or anonymised 24 hours after the alert closes or expires. The period must be validated before a real pilot.", noAutoDispatch:"This response does not replace 112 and does not automatically dispatch resources.", required:"Complete the four main answers before sending the check-in.", submit:"Send response", cancel:"Not now", notApplicable:"I am outside the area / this does not apply", notApplicableHint:"This option is recorded separately and is not counted as an operational need in the area.",
+      receiptTitle:"Response received", queuedTitle:"Response saved on this phone", receiptCopy:"The centre sees it aggregated by area and, if you ask for help, can open only the necessary detail. It is always distinguished from an estimate.", queuedCopy:"It will send automatically when coverage returns.", reference:"Reference", sentAt:"Time", lastChanged:"Last update", sync:"Sync", syncReceived:"Received by centre", syncPending:"Waiting to send", update:"Update response", precisionShared:"Shared precision", stopSharing:"Stop sharing location", sharingStopped:"Location removed", retry:"Retry now", retryDone:"Response synchronised", delete:"Delete my response", deleted:"Response deleted from this device", closeExpiry:"In the demo it is deleted or anonymised 24 hours after closure or expiry.", summaryUnderstood:"Alert understood", summaryNotUnderstood:"Alert not understood", summaryCanAct:"Can act", summaryCannotAct:"Cannot act", summaryHelp:"Needs help", summaryNoHelp:"Does not need help", formReopened:"You can update and send your response again.", statusLabel:"Status", alertZone:"Northern València coast"
+    }
+  };
+
+  var typeIcons = { dana:"waves", rain:"cloud-rain", fire:"flame", other:"triangle-alert" };
+  var storageKey = "vt01-citizen-pilot-v2";
+  function allowed(value, choices, fallback) { return choices.indexOf(value) >= 0 ? value : fallback; }
+  function bounded(value, min, max, fallback) {
+    var number = Number(value);
+    return Number.isFinite(number) ? Math.max(min, Math.min(max, Math.floor(number))) : fallback;
+  }
+  function loadSaved() {
+    try {
+      var saved = JSON.parse(window.localStorage.getItem(storageKey) || "null");
+      if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+      state.view = allowed(saved.view, ["home","active"], "home");
+      state.lang = allowed(saved.lang, ["es","val","en"], "es");
+      state.type = allowed(saved.type, ["dana","rain","fire","other"], "dana");
+      state.photo = saved.photo === true;
+      state.photoDraft = saved.photoDraft === true;
+      state.location = saved.location === true;
+      state.locationAge = bounded(saved.locationAge, 0, 86400, 0);
+      state.checkin = allowed(saved.checkin, ["safe","help","trapped"], "help");
+      state.persons = bounded(saved.persons, 1, 20, 1);
+      state.need = allowed(saved.need, ["none","medication","mobility","medical","dependent"], "none");
+      state.silent = saved.silent === true;
+      state.status = bounded(saved.status, 0, 3, 0);
+      state.queued = saved.queued === true || !!(saved.outbox && saved.outbox.pending === true);
+      state.caseReference = typeof saved.caseReference === "string" && (saved.caseReference === "Pendiente" || /^VT-[A-Za-z0-9-]{3,24}$/.test(saved.caseReference)) ? saved.caseReference : "VT-2041";
+      state.caseClientRequestId = typeof saved.caseClientRequestId === "string" ? saved.caseClientRequestId.slice(0,80) : "";
+      state.remoteInstruction = typeof saved.remoteInstruction === "string" ? saved.remoteInstruction.slice(0,500) : "";
+      state.seconds = bounded(saved.seconds, 0, 86400, 0);
+      state.caseTime = typeof saved.caseTime === "string" && /^([01]\d|2[0-3]):[0-5]\d$/.test(saved.caseTime) ? saved.caseTime : "10:42";
+      state.instructionRead = saved.instructionRead === true;
+      state.messageSent = saved.messageSent === true;
+      state.statusUpdate = allowed(saved.statusUpdate, ["still","worsened",null], null);
+      state.videoRequested = saved.videoRequested === true;
+      state.videoStarted = saved.videoStarted === true && state.videoRequested;
+      state.lowCoverage = saved.lowCoverage === true;
+      state.alertScenario = allowed(saved.alertScenario, ["dana","fire"], "dana");
+      state.largeText = saved.largeText === true;
+      state.contrast = saved.contrast === true;
+      state.note = typeof saved.note === "string" ? saved.note.slice(0,280) : "";
+      state.infoView = allowed(saved.infoView, ["weather","warnings","fires","emergencies","traffic","public","news","settings",null], null);
+      state.notifications = saved.notifications !== false;
+      state.locationPermission = allowed(saved.locationPermission, ["ask","granted","denied"], "ask");
+      state.selectedZone = allowed(saved.selectedZone, ["north-coast","south-coast","north-interior","south-interior"], "north-coast");
+      state.infoUpdated = typeof saved.infoUpdated === "string" ? saved.infoUpdated.slice(0,40) : state.infoUpdated;
+      state.cacheUpdated = typeof saved.cacheUpdated === "string" ? saved.cacheUpdated.slice(0,40) : state.cacheUpdated;
+      state.publicAcknowledged = saved.publicAcknowledged === true;
+      state.publicFormOpen = saved.publicFormOpen === true;
+      state.publicApplicable = saved.publicApplicable !== false;
+      state.publicReceived = saved.publicReceived === true;
+      state.publicUnderstood = typeof saved.publicUnderstood === "boolean" ? saved.publicUnderstood : null;
+      state.publicCanAct = typeof saved.publicCanAct === "boolean" ? saved.publicCanAct : null;
+      state.publicNeedsHelp = typeof saved.publicNeedsHelp === "boolean" ? saved.publicNeedsHelp : null;
+      state.publicReasons = Array.isArray(saved.publicReasons) ? saved.publicReasons.filter(function(reason){ return ["mobility","transport","dependents","medication","blocked","other","private"].indexOf(reason) >= 0; }).slice(0,7) : [];
+      state.publicPersons = bounded(saved.publicPersons, 1, 20, 1);
+      state.publicPrecision = allowed(saved.publicPrecision, ["zone","street","building","exact"], "zone");
+      state.publicSharing = saved.publicSharing === true;
+      state.publicSubmitted = saved.publicSubmitted === true;
+      state.publicSync = allowed(saved.publicSync, ["idle","queued","received"], "idle");
+      state.publicTime = typeof saved.publicTime === "string" ? saved.publicTime.slice(0,8) : "";
+      state.publicReference = typeof saved.publicReference === "string" ? saved.publicReference.slice(0,24) : "";
+      state.publicClientRequestId = typeof saved.publicClientRequestId === "string" ? saved.publicClientRequestId.slice(0,80) : "";
+      state.publicUpdated = typeof saved.publicUpdated === "string" ? saved.publicUpdated.slice(0,40) : "";
+    } catch (error) {
+      try { window.localStorage.removeItem(storageKey); } catch (ignored) {}
+    }
+  }
+  function saveState() {
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify({
+        view: state.view === "active" || (state.view === "consent" && state.returnView === "active") ? "active" : "home", lang: state.lang, type: state.type,
+        photo: state.photo, photoDraft: state.photoDraft, location: state.location, locationAge: state.locationAge,
+        checkin: state.checkin, persons: state.persons, need: state.need, silent: state.silent,
+        status: state.status, queued: state.queued, seconds: state.seconds, caseTime: state.caseTime,
+        caseReference: state.caseReference, caseClientRequestId: state.caseClientRequestId, remoteInstruction: state.remoteInstruction,
+        instructionRead: state.instructionRead, messageSent: state.messageSent, statusUpdate: state.statusUpdate,
+        videoRequested: state.videoRequested, videoStarted: state.videoStarted, lowCoverage: state.lowCoverage,
+        alertScenario: state.alertScenario, largeText: state.largeText, contrast: state.contrast,
+        note: String(state.note || "").slice(0,280),
+        infoView: state.infoView, notifications: state.notifications, locationPermission: state.locationPermission,
+        selectedZone: state.selectedZone, infoUpdated: state.infoUpdated, cacheUpdated: state.cacheUpdated,
+        publicAcknowledged: state.publicAcknowledged,
+        publicFormOpen: state.publicFormOpen, publicApplicable: state.publicApplicable, publicReceived: state.publicReceived,
+        publicUnderstood: state.publicUnderstood, publicCanAct: state.publicCanAct, publicNeedsHelp: state.publicNeedsHelp,
+        publicReasons: state.publicReasons.slice(0,7), publicPersons: state.publicPersons,
+        publicPrecision: state.publicPrecision, publicSharing: state.publicSharing, publicSubmitted: state.publicSubmitted,
+        publicSync: state.publicSync, publicTime: state.publicTime, publicReference: state.publicReference, publicClientRequestId: state.publicClientRequestId, publicUpdated: state.publicUpdated,
+        outbox: state.queued ? {pending:true, reference:state.caseReference, photoPending:state.photo} : null
+      }));
+    } catch (error) {}
+  }
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function (character) {
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character];
+    });
+  }
+  function clientRequestId(prefix) {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") return prefix + "-" + window.crypto.randomUUID();
+    var bytes = new Uint8Array(16);
+    if (window.crypto && typeof window.crypto.getRandomValues === "function") window.crypto.getRandomValues(bytes);
+    else for (var index=0; index<bytes.length; index+=1) bytes[index]=Math.floor(Math.random()*256);
+    return prefix + "-" + Array.prototype.map.call(bytes,function(value){return value.toString(16).padStart(2,"0");}).join("");
+  }
+  function emitNetwork(name, detail) {
+    if (!state.connectedMode || typeof window.CustomEvent !== "function") return;
+    document.dispatchEvent(new CustomEvent(name,{detail:detail}));
+  }
+  function incidentPayload() {
+    return {
+      clientRequestId:state.caseClientRequestId,
+      type:state.type,
+      note:String(state.note || "").slice(0,280),
+      zone:state.location ? "POBLATS MARITIMS" : "Ubicación pendiente",
+      latitude:state.location ? 39.4702 : null,
+      longitude:state.location ? -0.3768 : null,
+      accuracyM:state.location ? 12 : null,
+      people:state.persons,
+      need:state.need,
+      citizenState:state.checkin,
+      silent:state.silent,
+      hasPhoto:state.photo
+    };
+  }
+  function publicCheckinPayload() {
+    return {
+      clientRequestId:state.publicClientRequestId,
+      alertId:"ALERT-DEMO-VALENCIA-01",
+      zone:"POBLATS MARITIMS",
+      applicable:state.publicApplicable,
+      received:state.publicReceived,
+      understood:state.publicUnderstood,
+      canAct:state.publicCanAct,
+      needsHelp:state.publicNeedsHelp,
+      reasons:state.publicReasons.slice(0,7),
+      people:state.publicPersons,
+      precision:state.publicSharing ? state.publicPrecision : "none",
+      latitude:state.publicSharing && state.publicPrecision === "exact" ? 39.4702 : null,
+      longitude:state.publicSharing && state.publicPrecision === "exact" ? -0.3768 : null
+    };
+  }
+  function t(k) { return L[state.lang][k] || L.es[k] || k; }
+  function icons() { if (window.lucide) window.lucide.createIcons({attrs:{width:18,height:18}}); }
+  function say(message) { document.getElementById("vc-live").textContent = message; }
+  function m(k) { return M[state.lang][k] || M.es[k] || k; }
+  function c(k) { return C[state.lang][k] || C.es[k] || k; }
+  function goEmergency() {
+    state.infoView = null;
+    state.drawerOpen = false;
+    if (state.view === "consent") state.view = state.returnView;
+    render();
+  }
+  function goInfo(view) {
+    if (state.view === "consent") state.view = state.returnView;
+    state.infoView = view;
+    state.drawerOpen = false;
+    render();
+  }
+  function timeStamp() {
+    var now = new Date();
+    return String(now.getDate()).padStart(2,"0") + "/" + String(now.getMonth()+1).padStart(2,"0") + "/" + now.getFullYear() + " · " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+  }
+  function refreshInformation() {
+    if (state.lowCoverage) {
+      say(m("refreshOffline"));
+      return;
+    }
+    state.infoUpdated = timeStamp();
+    state.cacheUpdated = state.infoUpdated;
+    say(m("refreshDone"));
+  }
+  function renderNavigation() {
+    var nav = document.getElementById("vc-sidebar");
+    var active = state.infoView || "home";
+    var items = [
+      ["home","home",m("home"),""],
+      ["weather","cloud-sun",m("weather"),""],
+      ["warnings","triangle-alert",m("warnings"),"warning"],
+      ["fires","flame",m("fires"),""],
+      ["emergencies","siren",m("emergencies"),"danger"],
+      ["traffic","car-front",m("traffic"),"warning"],
+      ["public","megaphone",m("publicAlerts"),"danger"],
+      ["news","newspaper",m("officialNews"),""]
+    ];
+    nav.innerHTML = '<div class="vc-side-head"><strong>' + m("navTitle") + '</strong><button class="vc-side-close" id="vc-side-close" type="button" aria-label="' + escapeHTML(m("closeMenu")) + '"><i data-lucide="x" aria-hidden="true"></i></button></div>' +
+      '<div class="vc-side-emergency"><a href="tel:112" aria-label="' + escapeHTML(t("callLabel")) + '"><i data-lucide="phone" aria-hidden="true"></i>112</a><button id="vc-side-report" type="button"><i data-lucide="radio-tower" aria-hidden="true"></i>' + (state.view === "active" || state.returnView === "active" ? m("returnCase") : m("reportVT")) + '</button></div>' +
+      '<div class="vc-side-list">' + items.map(function(item){
+        return '<button class="vc-side-link' + (active === item[0] ? ' is-active' : '') + '" type="button" data-info-view="' + item[0] + '"' + (active === item[0] ? ' aria-current="page"' : '') + '><i data-lucide="' + item[1] + '" aria-hidden="true"></i><span>' + item[2] + '</span>' + (item[3] ? '<span class="vc-side-signal is-' + item[3] + '" aria-hidden="true"></span>' : '') + '</button>';
+      }).join("") +
+      '<div class="vc-side-separator"></div><button class="vc-side-link' + (active === "settings" ? ' is-active' : '') + '" type="button" data-info-view="settings"' + (active === "settings" ? ' aria-current="page"' : '') + '><i data-lucide="settings" aria-hidden="true"></i><span>' + m("settings") + '</span></button>' +
+      '<button class="vc-side-link" id="vc-info-refresh" type="button"><i data-lucide="refresh-cw" aria-hidden="true"></i><span>' + m("refresh") + '</span></button></div>' +
+      '<div class="vc-side-config"><label>' + m("language") + '<select id="vc-language" aria-label="' + escapeHTML(m("language")) + '"><option value="es">ES</option><option value="val">VAL</option><option value="en">EN</option></select></label><label>' + m("accessibility") + '<button id="vc-access" type="button" aria-pressed="' + String(state.largeText) + '"><i data-lucide="accessibility" aria-hidden="true"></i> A+</button></label></div>' +
+      '<div class="vc-side-status' + (state.lowCoverage ? ' is-offline' : '') + '"><i data-lucide="' + (state.lowCoverage ? 'cloud-off' : 'cloud-check') + '" aria-hidden="true"></i><span>' + (state.lowCoverage ? m("offlineCache") : m("onlineCache")) + '<br>' + m("cachedAt") + ': ' + escapeHTML(state.cacheUpdated) + '</span></div>';
+    nav.querySelectorAll("[data-info-view]").forEach(function(button){
+      button.addEventListener("click",function(){
+        var view = button.dataset.infoView;
+        if (view === "home") goEmergency(); else goInfo(view);
+      });
+    });
+    document.getElementById("vc-side-close").addEventListener("click",function(){ state.drawerOpen=false; render(); });
+    document.getElementById("vc-side-report").addEventListener("click",goEmergency);
+    document.getElementById("vc-info-refresh").addEventListener("click",function(){ refreshInformation(); state.drawerOpen=false; render(); });
+    var language = document.getElementById("vc-language");
+    language.value = state.lang;
+    language.addEventListener("change",function(event){ state.lang=event.target.value; render(); });
+    var access = document.getElementById("vc-access");
+    access.setAttribute("aria-label",state.largeText ? t("accessOff") : t("accessOn"));
+    access.addEventListener("click",function(){ state.largeText=!state.largeText; render(); });
+  }
+  function renderDock() {
+    var dock = document.getElementById("vc-emergency-dock");
+    dock.innerHTML = '<a class="vc-dock-call" href="tel:112" aria-label="' + escapeHTML(t("callLabel")) + '"><i data-lucide="phone-call" aria-hidden="true"></i>' + m("call112Short") + '</a><button class="vc-dock-report" id="vc-dock-report" type="button"><i data-lucide="radio-tower" aria-hidden="true"></i>' + (state.view === "active" || state.returnView === "active" ? m("returnCase") : m("reportVT")) + '</button>';
+    document.getElementById("vc-dock-report").addEventListener("click",goEmergency);
+  }
+  function chrome() {
+    root.setAttribute("lang", state.lang === "val" ? "ca-valencia" : state.lang);
+    root.setAttribute("aria-label",t("app"));
+    document.querySelector(".vc-subtitle").textContent=t("sub");
+    document.querySelector(".vc-footer").textContent=t("foot");
+    document.querySelector(".vc-header-112").setAttribute("aria-label",t("callLabel"));
+    document.getElementById("vc-backdrop").setAttribute("aria-label",m("closeMenu"));
+    document.getElementById("vc-sidebar").setAttribute("aria-label",m("navTitle"));
+    root.classList.toggle("is-large",state.largeText);
+    root.classList.toggle("is-contrast",state.contrast);
+    var sidebar=document.getElementById("vc-sidebar");
+    sidebar.classList.toggle("is-open",state.drawerOpen);
+    var backdrop=document.getElementById("vc-backdrop");
+    backdrop.hidden=!state.drawerOpen;
+    var menu=document.getElementById("vc-menu-toggle");
+    menu.setAttribute("aria-expanded",String(state.drawerOpen));
+    menu.setAttribute("aria-label",state.drawerOpen?m("closeMenu"):m("openMenu"));
+    renderNavigation();
+    renderDock();
+    icons();
+  }
+  function infoHead(title,copy) {
+    return '<div class="vc-info-head"><div><h2>' + title + '</h2><p>' + copy + '</p></div><span class="vc-demo-stamp">' + m("simulation") + '</span></div><p class="vc-privacy">' + m("simulatedData") + ' · ' + m("lastUpdate") + ': ' + escapeHTML(state.infoUpdated) + '</p>';
+  }
+  function infoFeed(icon,title,copy,meta,tone) {
+    return '<article class="vc-feed-item"><div class="vc-feed-icon' + (tone ? ' is-' + tone : '') + '"><i data-lucide="' + icon + '" aria-hidden="true"></i></div><div><strong>' + title + '</strong><p>' + copy + '</p><div class="vc-feed-meta">' + meta + '</div></div></article>';
+  }
+  function riskRows() {
+    var zones=[
+      {id:"north-coast",name:m("northCoast"),level:"orange",label:m("importantRisk")},
+      {id:"south-coast",name:m("southCoast"),level:"yellow",label:m("lowRisk")},
+      {id:"north-interior",name:m("northInterior"),level:"green",label:m("noRisk")},
+      {id:"south-interior",name:m("southInterior"),level:"red",label:m("extremeRisk")}
+    ];
+    return '<div class="vc-risk-list">' + zones.map(function(zone){
+      return '<button type="button" class="vc-risk-row' + (state.selectedZone===zone.id?' is-selected':'') + '" data-zone="' + zone.id + '" aria-pressed="' + String(state.selectedZone===zone.id) + '"><span class="vc-risk-dot" data-level="' + zone.level + '" aria-hidden="true"></span><span><strong>' + zone.name + '</strong><small>' + m("rainStorm") + '</small></span><span class="vc-risk-label">' + zone.label + '</span></button>';
+    }).join("") + '</div>';
+  }
+  function publicEntry() {
+    var submitted = state.publicSubmitted;
+    return '<section class="vc-public-entry"><div><span class="vc-hypothesis"><i data-lucide="flask-conical" aria-hidden="true"></i>' + c("hypothesis") + '</span><strong>' + (submitted ? c("receiptTitle") : c("entryTitle")) + '</strong><p>' + (submitted ? c("reference") + ': ' + escapeHTML(state.publicReference || "CK-DEMO-2041") + ' · ' + (state.publicSync === "queued" ? c("syncPending") : c("syncReceived")) : c("entryCopy")) + '</p></div><button class="vc-secondary" id="vc-open-public-checkin" type="button">' + (submitted ? c("update") : c("open")) + '</button></section>';
+  }
+  function publicChoice(field, value, label) {
+    var selected = state[field] === value;
+    return '<button type="button" data-public-field="' + field + '" data-public-value="' + String(value) + '" class="' + (selected ? 'is-selected' : '') + '" aria-pressed="' + String(selected) + '">' + label + '</button>';
+  }
+  function publicQuestion(number, title, field, yesLabel, noLabel) {
+    return '<section class="vc-public-block"><div class="vc-public-question"><span class="vc-public-number" aria-hidden="true">' + number + '</span><h3>' + title + '</h3></div><div class="vc-public-choices">' + publicChoice(field,true,yesLabel) + publicChoice(field,false,noLabel) + '</div></section>';
+  }
+  function publicReasonOptions() {
+    var choices = [
+      ["mobility","mobilityReason"],["transport","transportReason"],["dependents","dependentsReason"],
+      ["medication","medicationReason"],["blocked","blockedReason"],["other","otherReason"],["private","preferNot"]
+    ];
+    return '<div class="vc-reason-grid">' + choices.map(function(item){
+      var checked = state.publicReasons.indexOf(item[0]) >= 0;
+      return '<label class="vc-check-row"><input type="checkbox" data-public-reason="' + item[0] + '"' + (checked ? ' checked' : '') + '><span>' + c(item[1]) + '</span></label>';
+    }).join("") + '</div>';
+  }
+  function precisionOptions() {
+    return [["zone","precisionZone"],["street","precisionStreet"],["building","precisionBuilding"],["exact","precisionExact"]].map(function(item){
+      return '<option value="' + item[0] + '"' + (state.publicPrecision === item[0] ? ' selected' : '') + '>' + c(item[1]) + '</option>';
+    }).join("");
+  }
+  function publicForm() {
+    var showReasons = state.publicCanAct === false || state.publicNeedsHelp === true;
+    return '<div class="vc-public-form">' +
+      '<span class="vc-hypothesis"><i data-lucide="flask-conical" aria-hidden="true"></i>' + c("hypothesis") + '</span>' +
+      '<section class="vc-data-purpose"><button class="vc-secondary" id="vc-public-not-applicable" type="button">' + c("notApplicable") + '</button><p>' + c("notApplicableHint") + '</p></section>' +
+      '<section class="vc-public-block"><div class="vc-public-question"><span class="vc-public-number" aria-hidden="true">1</span><h3>' + c("receivedAlert") + '</h3></div><label class="vc-check-row"><input id="vc-public-received" type="checkbox"' + (state.publicReceived ? ' checked' : '') + '><span>' + c("receivedAlert") + '</span></label></section>' +
+      publicQuestion(2,c("understoodQ"),"publicUnderstood",c("yesUnderstood"),c("noUnderstood")) +
+      (state.publicUnderstood === false ? '<section class="vc-simple-guide"><i data-lucide="volume-2" aria-hidden="true"></i><div><strong>' + c("simpleTitle") + '</strong><p>' + c("simpleInstructions") + '</p><button class="vc-mini" id="vc-public-listen" type="button" aria-pressed="' + String(state.publicListening) + '"><i data-lucide="' + (state.publicListening ? 'square' : 'volume-2') + '" aria-hidden="true"></i> ' + (state.publicListening ? c("stopListening") : c("listen")) + '</button>' + (state.publicListening ? '<p role="status">' + c("listening") + '</p>' : '') + '</div></section>' : '') +
+      publicQuestion(3,c("actQ"),"publicCanAct",c("yesAct"),c("noAct")) +
+      publicQuestion(4,c("helpQ"),"publicNeedsHelp",c("yesHelp"),c("noHelp")) +
+      (showReasons ? '<section class="vc-public-block"><h3>' + c("reasonsTitle") + '</h3><p>' + c("reasonsCopy") + '</p>' + publicReasonOptions() + '<label class="vc-public-field">' + c("peopleCount") + '<input id="vc-public-persons" type="number" min="1" max="20" inputmode="numeric" value="' + state.publicPersons + '"></label></section>' : '') +
+      '<section class="vc-public-block"><h3>' + c("locationTitle") + '</h3><p>' + c("locationCopy") + '</p><label class="vc-public-field">' + c("precisionShared") + '<select id="vc-public-precision"' + (state.publicSharing ? '' : ' disabled') + '>' + precisionOptions() + '</select></label><label class="vc-check-row"><input id="vc-public-sharing" type="checkbox"' + (state.publicSharing ? ' checked' : '') + '><span>' + c("locationConsent") + '</span></label>' + (!state.publicSharing ? '<p>' + c("noDeviceLocation") + '</p>' : '') + '</section>' +
+      '<section class="vc-data-purpose"><strong>' + c("purposeTitle") + '</strong><p>' + c("purposeCopy") + '</p><p>' + c("retention") + '</p><p><strong>' + c("noAutoDispatch") + '</strong></p></section>' +
+      (state.publicError ? '<p class="vc-error" role="alert">' + c("required") + '</p>' : '') +
+      '<button class="vc-primary" id="vc-public-submit" type="button">' + c("submit") + '</button><button class="vc-quiet" id="vc-public-cancel" type="button">' + c("cancel") + '</button></div>';
+  }
+  function publicSummary() {
+    if (!state.publicApplicable) return '<div class="vc-summary"><span>' + c("notApplicable") + '</span></div>';
+    var labels = [
+      state.publicUnderstood ? c("summaryUnderstood") : c("summaryNotUnderstood"),
+      state.publicCanAct ? c("summaryCanAct") : c("summaryCannotAct"),
+      state.publicNeedsHelp ? c("summaryHelp") : c("summaryNoHelp"),
+      state.publicPersons + ' · ' + t("people")
+    ];
+    return '<div class="vc-summary">' + labels.map(function(label){ return '<span>' + label + '</span>'; }).join("") + '</div>';
+  }
+  function publicReceipt() {
+    var pending = state.publicSync === "queued";
+    var receiptMessage = pending ? c("queuedCopy") : (state.publicApplicable ? c("receiptCopy") : c("notApplicableHint"));
+    return '<section class="vc-public-receipt' + (pending ? ' is-pending' : '') + '"><span class="vc-hypothesis"><i data-lucide="flask-conical" aria-hidden="true"></i>' + c("hypothesis") + '</span><div class="vc-receipt-head"><i data-lucide="' + (pending ? 'cloud-off' : 'badge-check') + '" aria-hidden="true"></i><div><strong>' + (pending ? c("queuedTitle") : c("receiptTitle")) + '</strong><span>' + receiptMessage + '</span></div></div><div class="vc-receipt-grid"><div><span>' + c("reference") + '</span><strong>' + escapeHTML(state.publicReference) + '</strong></div><div><span>' + c("sentAt") + '</span><strong>' + escapeHTML(state.publicTime) + '</strong></div><div><span>' + c("lastChanged") + '</span><strong>' + escapeHTML(state.publicUpdated) + '</strong></div><div><span>' + c("sync") + '</span><strong>' + (pending ? c("syncPending") : c("syncReceived")) + '</strong></div></div>' + publicSummary() +
+      (state.publicApplicable ? (state.publicSharing ? '<section class="vc-data-purpose"><strong>' + c("precisionShared") + ': ' + c("precision" + state.publicPrecision.charAt(0).toUpperCase() + state.publicPrecision.slice(1)) + '</strong><label class="vc-public-field">' + c("locationTitle") + '<select id="vc-public-receipt-precision">' + precisionOptions() + '</select></label><button class="vc-mini" id="vc-public-stop-location" type="button">' + c("stopSharing") + '</button></section>' : '<p>' + c("noDeviceLocation") + '</p>') : '') +
+      '<p><strong>' + c("noAutoDispatch") + '</strong></p>' + (pending ? '<button class="vc-primary" id="vc-public-retry" type="button">' + c("retry") + '</button>' : '') + '<div class="vc-actions"><button class="vc-secondary" id="vc-public-update" type="button">' + c("update") + '</button><button class="vc-mini" id="vc-public-delete" type="button">' + c("delete") + '</button></div><p>' + c("closeExpiry") + '</p></section>';
+  }
+  function publicCheckin() {
+    if (state.publicSubmitted) return publicReceipt();
+    return publicEntry();
+  }
+  function clearPublicCheckin() {
+    state.publicFormOpen = false; state.publicApplicable = true; state.publicReceived = false; state.publicUnderstood = null; state.publicCanAct = null;
+    state.publicNeedsHelp = null; state.publicReasons = []; state.publicPersons = 1; state.publicPrecision = "zone";
+    state.publicSharing = false; state.publicSubmitted = false; state.publicSync = "idle"; state.publicTime = "";
+    state.publicReference = ""; state.publicUpdated = ""; state.publicListening = false; state.publicError = "";
+  }
+  function bindPublicCheckin() {
+    var open = document.getElementById("vc-open-public-checkin");
+    if (open) open.addEventListener("click",function(){ document.dispatchEvent(new CustomEvent("vt01:open-quick-checkin")); });
+    var notApplicable = document.getElementById("vc-public-not-applicable");
+    if (notApplicable) notApplicable.addEventListener("click",function(){
+      var now=new Date();
+      state.publicApplicable=false; state.publicReceived=false; state.publicUnderstood=null; state.publicCanAct=null; state.publicNeedsHelp=null;
+      state.publicReasons=[]; state.publicPersons=1; state.publicSharing=false; state.publicSubmitted=true; state.publicFormOpen=false; state.publicListening=false;
+      state.publicClientRequestId=state.publicClientRequestId||clientRequestId("checkin");
+      state.publicSync=(state.connectedMode||state.lowCoverage)?"queued":"received"; state.publicTime=String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0");
+      state.publicReference=state.publicReference||"CK-DEMO-2041"; state.publicUpdated=timeStamp(); state.publicError=""; render(); say(c("receiptTitle"));
+      emitNetwork("vt01:checkin-submit",publicCheckinPayload());
+    });
+    var received = document.getElementById("vc-public-received");
+    if (received) received.addEventListener("change",function(event){ state.publicReceived=event.target.checked; state.publicError=""; saveState(); });
+    screen.querySelectorAll("[data-public-field]").forEach(function(button){
+      button.addEventListener("click",function(){ state[button.dataset.publicField]=button.dataset.publicValue === "true"; state.publicError=""; render(); });
+    });
+    screen.querySelectorAll("[data-public-reason]").forEach(function(input){
+      input.addEventListener("change",function(){
+        if (input.checked && state.publicReasons.indexOf(input.dataset.publicReason) < 0) state.publicReasons.push(input.dataset.publicReason);
+        if (!input.checked) state.publicReasons=state.publicReasons.filter(function(reason){ return reason !== input.dataset.publicReason; });
+        saveState();
+      });
+    });
+    var persons=document.getElementById("vc-public-persons");
+    if (persons) persons.addEventListener("change",function(event){ state.publicPersons=bounded(event.target.value,1,20,1); saveState(); });
+    var sharing=document.getElementById("vc-public-sharing");
+    if (sharing) sharing.addEventListener("change",function(event){ state.publicSharing=event.target.checked; render(); });
+    var precision=document.getElementById("vc-public-precision");
+    if (precision) precision.addEventListener("change",function(event){ state.publicPrecision=allowed(event.target.value,["zone","street","building","exact"],"zone"); saveState(); });
+    var listen=document.getElementById("vc-public-listen");
+    if (listen) listen.addEventListener("click",function(){ state.publicListening=!state.publicListening; render(); say(state.publicListening?c("listening"):c("stopListening")); });
+    var submit=document.getElementById("vc-public-submit");
+    if (submit) submit.addEventListener("click",function(){
+      if (!state.publicReceived || typeof state.publicUnderstood !== "boolean" || typeof state.publicCanAct !== "boolean" || typeof state.publicNeedsHelp !== "boolean") { state.publicError="required"; render(); say(c("required")); return; }
+      var now=new Date();
+      state.publicApplicable=true; state.publicSubmitted=true; state.publicFormOpen=false; state.publicAcknowledged=true; state.publicListening=false;
+      state.publicClientRequestId=state.publicClientRequestId||clientRequestId("checkin");
+      state.publicSync=(state.connectedMode||state.lowCoverage)?"queued":"received"; state.publicTime=String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0");
+      state.publicReference=state.publicReference||"CK-DEMO-2041"; state.publicUpdated=timeStamp(); state.publicError=""; render(); say(state.publicSync==="queued"?c("queuedTitle"):c("receiptTitle"));
+      emitNetwork("vt01:checkin-submit",publicCheckinPayload());
+    });
+    var cancel=document.getElementById("vc-public-cancel");
+    if (cancel) cancel.addEventListener("click",function(){ state.publicFormOpen=false; state.publicListening=false; state.publicError=""; render(); });
+    var update=document.getElementById("vc-public-update");
+    if (update) update.addEventListener("click",function(){ state.publicFormOpen=true; render(); say(c("formReopened")); });
+    var retry=document.getElementById("vc-public-retry");
+    if (retry) retry.addEventListener("click",function(){
+      state.publicUpdated=timeStamp();
+      if (state.connectedMode) { state.publicSync="queued"; render(); emitNetwork("vt01:checkin-submit",publicCheckinPayload()); }
+      else { state.publicSync="received"; state.lowCoverage=false; render(); say(c("retryDone")); }
+    });
+    var stop=document.getElementById("vc-public-stop-location");
+    if (stop) stop.addEventListener("click",function(){ state.publicSharing=false; state.publicUpdated=timeStamp(); render(); emitNetwork("vt01:checkin-submit",publicCheckinPayload()); say(c("sharingStopped")); });
+    var receiptPrecision=document.getElementById("vc-public-receipt-precision");
+    if (receiptPrecision) receiptPrecision.addEventListener("change",function(event){ state.publicPrecision=allowed(event.target.value,["zone","street","building","exact"],"zone"); state.publicUpdated=timeStamp(); render(); emitNetwork("vt01:checkin-submit",publicCheckinPayload()); });
+    var remove=document.getElementById("vc-public-delete");
+    if (remove) remove.addEventListener("click",function(){ clearPublicCheckin(); render(); say(c("deleted")); });
+  }
+  function infoPanel() {
+    var view=state.infoView;
+    if (view==="weather") {
+      screen.innerHTML=infoHead(m("weatherTitle"),m("weatherCopy")) +
+        '<section class="vc-info-section"><div class="vc-weather-now"><div class="vc-weather-icon"><i data-lucide="cloud-sun" aria-hidden="true"></i></div><div><div class="vc-temperature">24 °C</div><div class="vc-weather-copy">' + m("partlyCloudy") + '<br>' + m("weatherZone") + '</div></div></div><div class="vc-metrics"><div class="vc-metric"><span>' + m("feels") + '</span><strong>25 °C</strong></div><div class="vc-metric"><span>' + m("humidity") + '</span><strong>68 %</strong></div><div class="vc-metric"><span>' + m("wind") + '</span><strong>14 km/h</strong></div></div></section>' +
+        (state.locationPermission!=="granted"?'<section class="vc-info-section"><h3><i data-lucide="map-pin" aria-hidden="true"></i> ' + m("locationPermission") + '</h3><p>' + m("locationNeeded") + '</p><button class="vc-secondary" id="vc-weather-settings" type="button">' + m("configureLocation") + '</button></section>':'') +
+        '<button class="vc-primary" id="vc-weather-warnings" type="button">' + m("viewWarnings") + '</button>' + network();
+      var ws=document.getElementById("vc-weather-settings"); if(ws) ws.addEventListener("click",function(){goInfo("settings");});
+      document.getElementById("vc-weather-warnings").addEventListener("click",function(){goInfo("warnings");});
+    } else if (view==="warnings") {
+      var zoneName={"north-coast":m("northCoast"),"south-coast":m("southCoast"),"north-interior":m("northInterior"),"south-interior":m("southInterior")}[state.selectedZone];
+      screen.innerHTML=infoHead(m("warningsTitle"),m("warningsCopy")) +
+        '<section class="vc-info-section"><div class="vc-risk-legend"><span><i class="vc-risk-dot" aria-hidden="true"></i>' + m("noRisk") + '</span><span><i class="vc-risk-dot" data-level="yellow" aria-hidden="true"></i>' + m("lowRisk") + '</span><span><i class="vc-risk-dot" data-level="orange" aria-hidden="true"></i>' + m("importantRisk") + '</span><span><i class="vc-risk-dot" data-level="red" aria-hidden="true"></i>' + m("extremeRisk") + '</span></div>' + riskRows() + '</section>' +
+        '<section class="vc-info-section"><h3>' + m("selectedZone") + ': ' + zoneName + '</h3><p>' + m("rainStorm") + ' · ' + m("validDemo") + '</p></section>' + network();
+      screen.querySelectorAll("[data-zone]").forEach(function(button){button.addEventListener("click",function(){state.selectedZone=button.dataset.zone;render();say(button.textContent.trim());});});
+    } else if (view==="fires") {
+      screen.innerHTML=infoHead(m("firesTitle"),m("firesCopy")) + '<section class="vc-info-section vc-feed">' +
+        infoFeed("trees",m("fireOne"),m("fireOneCopy"),m("monitored")+' · 09:01',"warning") + infoFeed("cloud",m("fireTwo"),m("fireTwoCopy"),m("controlled")+' · 08:47',"") + '</section>' + network();
+    } else if (view==="emergencies") {
+      screen.innerHTML=infoHead(m("emergenciesTitle"),m("emergenciesCopy")) + '<section class="vc-info-section vc-feed">' +
+        infoFeed("waves",m("emergencyOne"),m("emergencyOneCopy"),'VT-DEMO-31 · 08:58',"warning") + infoFeed("ambulance",m("emergencyTwo"),m("emergencyTwoCopy"),'VT-DEMO-27 · 08:39',"") + '</section>' + network();
+    } else if (view==="traffic") {
+      screen.innerHTML=infoHead(m("trafficTitle"),m("trafficCopy")) + '<section class="vc-info-section vc-feed">' +
+        infoFeed("car-front",m("trafficOne"),m("trafficOneCopy"),'V-30 · 09:02',"warning") + infoFeed("signpost",m("trafficTwo"),m("trafficTwoCopy"),'CV-500 · 08:51',"danger") + '</section>' + network();
+    } else if (view==="public") {
+      screen.innerHTML=infoHead(m("publicTitle"),m("publicCopy")) + '<section class="vc-alert"><div class="vc-alert-head"><span class="vc-alert-type"><i data-lucide="megaphone" aria-hidden="true"></i>' + m("simulation") + '</span><span class="vc-pill">09:00</span></div><h2>' + m("publicOne") + '</h2><p>' + m("publicOneCopy") + '</p></section><p class="vc-privacy">' + c("independent") + '</p>' + publicCheckin() + call112();
+      bindPublicCheckin();
+    } else if (view==="news") {
+      screen.innerHTML=infoHead(m("newsTitle"),m("newsCopy")) + '<section class="vc-info-section" id="vc-news-source"><div class="vc-x-source"><div class="vc-x-icon" aria-hidden="true">𝕏</div><div><strong>' + m("xSource") + '</strong><span>' + m("xDemo") + '</span></div></div><a class="vc-link-demo" id="vc-x-demo" href="https://x.com/GVA112" target="_blank" rel="noopener noreferrer" aria-label="@GVA112 · X"><i data-lucide="external-link" aria-hidden="true"></i>' + m("xOpen") + '</a></section><section class="vc-info-section vc-feed">' +
+        infoFeed("cloud-rain",m("newsOne"),m("newsOneCopy"),'GVA 112 · DEMO · 08:56',"warning") + infoFeed("flame",m("newsTwo"),m("newsTwoCopy"),'GVA 112 · DEMO · 08:22',"") + '</section>' + network();
+     
+    } else if (view==="settings") {
+      screen.innerHTML=infoHead(m("settingsTitle"),m("settingsCopy")) + '<section class="vc-info-section vc-setting-list">' +
+        '<div class="vc-setting-row"><i data-lucide="bell" aria-hidden="true"></i><span><strong>' + m("notifications") + '</strong><small>' + m("notificationsCopy") + '</small></span><label class="vc-switch"><span class="sr-only">' + m("notifications") + '</span><input id="vc-settings-notifications" type="checkbox"' + (state.notifications?' checked':'') + '></label></div>' +
+        '<div class="vc-setting-row"><i data-lucide="languages" aria-hidden="true"></i><span><strong>' + m("language") + '</strong><small>ES · VAL · EN</small></span><select id="vc-settings-language" aria-label="' + escapeHTML(m("language")) + '"><option value="es">ES</option><option value="val">VAL</option><option value="en">EN</option></select></div>' +
+        '<div class="vc-setting-row"><i data-lucide="map-pin" aria-hidden="true"></i><span><strong>' + m("locationPermission") + '</strong><small>' + m("locationCopy") + '</small></span><select id="vc-settings-location" aria-label="' + escapeHTML(m("locationPermission")) + '"><option value="ask">' + m("askEveryTime") + '</option><option value="granted">' + m("granted") + '</option><option value="denied">' + m("denied") + '</option></select></div>' +
+        '<div class="vc-setting-row"><i data-lucide="accessibility" aria-hidden="true"></i><span><strong>' + m("largeText") + '</strong><small>' + m("accessibility") + '</small></span><label class="vc-switch"><span class="sr-only">' + m("largeText") + '</span><input id="vc-settings-large" type="checkbox"' + (state.largeText?' checked':'') + '></label></div>' +
+        '<div class="vc-setting-row"><i data-lucide="contrast" aria-hidden="true"></i><span><strong>' + m("highContrast") + '</strong><small>' + m("accessibility") + '</small></span><label class="vc-switch"><span class="sr-only">' + m("highContrast") + '</span><input id="vc-settings-contrast" type="checkbox"' + (state.contrast?' checked':'') + '></label></div></section>' +
+        '<section class="vc-info-section"><h3>' + m("cacheTitle") + '</h3><div class="vc-cache"><i data-lucide="database" aria-hidden="true"></i><span>' + (state.lowCoverage?m("offlineCache"):m("onlineCache")) + '<br>' + m("cachedAt") + ': ' + escapeHTML(state.cacheUpdated) + '</span></div><button class="vc-secondary" id="vc-refresh-cache" type="button">' + m("refreshCache") + '</button></section>' +
+        '<details class="vc-optional"><summary>' + m("privacyAbout") + '</summary><div class="vc-optional-body"><p class="vc-privacy">' + m("privacyCopy") + '</p></div></details>' + network();
+      var sl=document.getElementById("vc-settings-language"); sl.value=state.lang; sl.addEventListener("change",function(e){state.lang=e.target.value;render();});
+      var loc=document.getElementById("vc-settings-location"); loc.value=state.locationPermission; loc.addEventListener("change",function(e){state.locationPermission=e.target.value;render();say(m("locationPermission")+': '+e.target.options[e.target.selectedIndex].text);});
+      document.getElementById("vc-settings-notifications").addEventListener("change",function(e){state.notifications=e.target.checked;saveState();say(m("notifications"));});
+      document.getElementById("vc-settings-large").addEventListener("change",function(e){state.largeText=e.target.checked;render();});
+      document.getElementById("vc-settings-contrast").addEventListener("change",function(e){state.contrast=e.target.checked;render();});
+      document.getElementById("vc-refresh-cache").addEventListener("click",function(){refreshInformation();render();});
+    }
+    var infoRetry=document.getElementById("vc-retry");
+    if (infoRetry) infoRetry.addEventListener("click",function(){
+      state.status=0; state.seconds=0;
+      if (state.connectedMode) { state.queued=true; render(); emitNetwork("vt01:incident-submit",incidentPayload()); }
+      else { state.queued=false; state.lowCoverage=false; render(); say(t("retry")); }
+    });
+    icons();
+  }
+  function call112() {
+    return '<section class="vc-real-emergency"><i data-lucide="phone-call" aria-hidden="true"></i><span><strong>' + t("danger") + '</strong><br>' + t("official") + '</span><a class="vc-call-112" href="tel:112" aria-label="' + escapeHTML(t("callLabel")) + '"><i data-lucide="phone" aria-hidden="true"></i>' + t("call") + '</a><span class="vc-call-note">' + t("separate") + '</span></section>';
+  }
+  function network() {
+    var pending = state.queued || state.lowCoverage;
+    return '<div class="vc-network' + (pending ? ' is-low' : '') + '"><i data-lucide="' + (pending ? 'cloud-off' : 'cloud-check') + '" aria-hidden="true"></i><span><strong>' + (state.queued ? t("queued") : pending ? t("low") : t("ready")) + '</strong>' + (state.queued ? t("queuedCopy") : t("retryNote")) + '</span>' + (state.queued ? '<button class="vc-mini" id="vc-retry" type="button">' + t("retry") + '</button>' : '') + '</div>';
+  }
+  function types() {
+    return ["dana","rain","fire","other"].map(function (key) {
+      return '<button type="button" class="vc-type' + (state.type === key ? ' is-selected' : '') + '" data-type="' + key + '" aria-pressed="' + String(state.type === key) + '"><i data-lucide="' + typeIcons[key] + '" aria-hidden="true"></i><span>' + t(key) + '</span></button>';
+    }).join("");
+  }
+  function checkins() {
+    return ["safe","help","trapped"].map(function (key) {
+      return '<button type="button" data-checkin="' + key + '" class="' + (state.checkin === key ? 'is-selected' : '') + '" aria-pressed="' + String(state.checkin === key) + '">' + t(key) + '</button>';
+    }).join("");
+  }
+  function options(open) {
+    return '<details class="vc-optional"' + (open ? ' open' : '') + '><summary>' + (open ? t("current") : t("optional")) + '</summary><div class="vc-optional-body"><div class="vc-checkin three"><span class="vc-checkin-label">' + t("state") + '</span>' + checkins() + '</div><div class="vc-fields"><label class="vc-field">' + t("people") + '<input id="vc-persons" type="number" min="1" max="20" inputmode="numeric" value="' + state.persons + '"></label><label class="vc-field">' + t("need") + '<select class="vc-select" id="vc-need"><option value="none">' + t("none") + '</option><option value="medication">' + t("medication") + '</option><option value="mobility">' + t("mobility") + '</option><option value="medical">' + t("medical") + '</option><option value="dependent">' + t("dependent") + '</option></select></label></div><label class="vc-silent"><input id="vc-silent" type="checkbox"' + (state.silent ? ' checked' : '') + '>' + t("silent") + '</label></div></details>';
+  }
+  function bindOptions() {
+    screen.querySelectorAll("[data-checkin]").forEach(function (button) {
+      button.addEventListener("click", function () { state.checkin = button.dataset.checkin; render(); say(t(state.checkin)); });
+    });
+    var people = document.getElementById("vc-persons");
+    if (people) people.addEventListener("change", function (event) { state.persons = Math.max(1, Math.min(20, Number(event.target.value) || 1)); saveState(); });
+    var need = document.getElementById("vc-need");
+    if (need) { need.value = state.need; need.addEventListener("change", function (event) { state.need = event.target.value; saveState(); }); }
+    var silent = document.getElementById("vc-silent");
+    if (silent) silent.addEventListener("change", function (event) { state.silent = event.target.checked; render(); });
+  }
+  function photoPreview() {
+    if (!state.photoDraft) return "";
+    return '<section class="vc-photo-preview" aria-labelledby="vc-photo-preview-title"><div class="vc-photo-image" aria-hidden="true"><i data-lucide="image"></i></div><div class="vc-photo-copy"><strong id="vc-photo-preview-title">' + t("photoDraft") + '</strong><span>' + t("preview") + '</span><span id="vc-photo-decision">' + t("photoDecision") + '</span><div class="vc-actions"><button class="vc-mini" id="vc-confirm-photo-draft" type="button">' + t("confirmPreview") + '</button><button class="vc-mini" id="vc-discard-photo-draft" type="button">' + t("discard") + '</button></div></div></section>';
+  }
+  function bindPhotoPreview() {
+    var confirm = document.getElementById("vc-confirm-photo-draft");
+    if (confirm) confirm.addEventListener("click", function () {
+      state.photo = true;
+      state.photoDraft = false;
+      render();
+      say(t("photoConfirmed"));
+    });
+    var discard = document.getElementById("vc-discard-photo-draft");
+    if (discard) discard.addEventListener("click", function () {
+      state.photoDraft = false;
+      render();
+      say(t("photoDiscarded"));
+    });
+  }
+  function askConsent(kind, returnView) {
+    state.consent = kind; state.returnView = returnView; state.view = "consent"; render();
+  }
+  function consent() {
+    var photo = state.consent === "photo";
+    screen.innerHTML = '<section class="vc-consent"><div class="vc-call-icon"><i data-lucide="' + (photo ? 'camera' : 'map-pin') + '" aria-hidden="true"></i></div><h2>' + (photo ? t("allowPhoto") : t("allowLocation")) + '</h2><p>' + (photo ? t("photoConsent") : t("locationConsent")) + '</p><p><strong>' + t("only") + '</strong></p><button class="vc-primary" id="vc-confirm" type="button">' + (photo ? t("confirmPhoto") : t("confirmLocation")) + '</button><button class="vc-quiet" id="vc-back" type="button">' + t("back") + '</button></section>';
+    document.getElementById("vc-confirm").addEventListener("click", function () {
+      if (photo) state.photoDraft = true; else { state.location = true; state.locationAge = 0; }
+      state.view = state.returnView; render(); say(photo ? t("photoDraft") : t("locationReady"));
+    });
+    document.getElementById("vc-back").addEventListener("click", function () { state.view = state.returnView; render(); });
+    icons();
+  }
+  function home() {
+    var fireAlert = state.alertScenario === "fire";
+    screen.innerHTML =
+      '<section class="vc-alert"><div class="vc-alert-head"><span class="vc-alert-type"><i data-lucide="radio" aria-hidden="true"></i>' + (fireAlert ? t("fireTag") : t("danaTag")) + '</span><span class="vc-pill">' + t("test") + '</span></div><h2>' + (fireAlert ? t("fireTitle") : t("danaTitle")) + '</h2><p>' + (fireAlert ? t("fireCopy") : t("danaCopy")) + '</p></section>' +
+      publicEntry() +
+      call112() +
+      '<div class="vc-evidence-title"><h2>' + t("share") + '</h2><span>' + t("pilot") + '</span></div><div class="vc-tools"><button class="vc-tool ' + (state.photo && !state.photoDraft ? 'is-complete' : '') + '" id="vc-photo" type="button"><i data-lucide="' + (state.photoDraft ? 'clock-3' : state.photo ? 'circle-check' : 'camera') + '" aria-hidden="true"></i><strong>' + (state.photoDraft ? t("photoDraft") : state.photo ? t("photoReady") : t("photo")) + '</strong><small>' + (state.photoDraft ? t("preview") : state.photo ? t("readyCopy") : t("camera")) + '</small></button><button class="vc-tool ' + (state.location ? 'is-complete' : '') + '" id="vc-location" type="button"><i data-lucide="' + (state.location ? 'map-pin-check' : 'locate-fixed') + '" aria-hidden="true"></i><strong>' + (state.location ? t("locationReady") : t("location")) + '</strong><small>' + (state.location ? 'Poblats Marítims · ±12 m' : t("ask")) + '</small></button></div>' + photoPreview() +
+      '<h2 class="vc-question">' + t("what") + '</h2><div class="vc-types">' + types() + '</div><label class="vc-notes">' + t("describe") + '<textarea id="vc-notes" maxlength="280" placeholder="' + t("placeholder") + '">' + escapeHTML(state.note) + '</textarea></label>' + options(false) +
+      '<button class="vc-primary" id="vc-start" type="button"' + (state.photoDraft ? ' disabled aria-describedby="vc-photo-decision"' : '') + '>' + t("send") + '</button><p class="vc-privacy">' + (state.photoDraft ? t("photoDecision") : t("without")) + '</p>' + network();
+    screen.querySelectorAll("[data-type]").forEach(function (button) {
+      button.addEventListener("click", function () { state.type = button.dataset.type; render(); });
+    });
+    document.getElementById("vc-photo").addEventListener("click", function () { askConsent("photo","home"); });
+    document.getElementById("vc-location").addEventListener("click", function () { askConsent("location","home"); });
+    document.getElementById("vc-notes").addEventListener("input", function (event) { state.note = event.target.value; saveState(); });
+    document.getElementById("vc-start").addEventListener("click", startCase);
+    bindOptions(); bindPhotoPreview();
+    var publicOpen=document.getElementById("vc-open-public-checkin");
+    if (publicOpen) publicOpen.addEventListener("click",function(){ document.dispatchEvent(new CustomEvent("vt01:open-quick-checkin")); });
+    icons();
+  }
+  function duration() {
+    return String(Math.floor(state.seconds / 60)).padStart(2,"0") + ":" + String(state.seconds % 60).padStart(2,"0");
+  }
+  function timeline() {
+    var labels = [t("received"),t("seen"),t("accepted"),t("closed")];
+    var details = [state.caseTime + " · " + state.caseReference, state.status >= 1 ? t("pilot") : t("pending"), state.status >= 2 ? t("assigned") : t("pending"), state.status >= 3 ? state.caseTime : t("pending")];
+    return '<div class="vc-progress">' + labels.map(function (label,index) {
+      var c = state.status === 3 || index < state.status ? " is-done" : index === state.status ? " is-current" : "";
+      return '<div class="vc-step' + c + '"><div class="vc-step-mark"><span class="vc-step-dot"></span></div><div><div class="vc-step-title">' + label + '</div><div class="vc-step-copy">' + details[index] + '</div></div></div>';
+    }).join("") + '</div>';
+  }
+  function instruction() {
+    if (state.status < 2) return "";
+    if (state.connectedMode && !state.remoteInstruction) return "";
+    return '<section class="vc-instruction"><strong>' + t("instruction") + ' · ' + state.caseTime + '</strong><p>' + escapeHTML(state.remoteInstruction || t("instructionText")) + '</p><button class="vc-mini" id="vc-read" type="button"' + (state.instructionRead ? ' disabled' : '') + '>' + (state.instructionRead ? t("read") : t("markRead")) + '</button></section>';
+  }
+  function statusActions() {
+    var confirmation = state.statusUpdate === "still" ? t("stillConfirmed") : state.statusUpdate === "worsened" ? t("worsenedConfirmed") : "";
+    return '<section class="vc-location-detail"><strong>' + t("worse") + '</strong><div class="vc-actions"><button class="vc-mini" type="button" data-status-update="still" aria-pressed="' + String(state.statusUpdate === "still") + '">' + t("stillHelp") + '</button><button class="vc-mini vc-urgent" type="button" data-status-update="worsened" aria-pressed="' + String(state.statusUpdate === "worsened") + '">' + t("worsened") + '</button></div>' + (confirmation ? '<div class="vc-update-confirm" role="status" aria-live="polite"><i data-lucide="circle-check" aria-hidden="true"></i><span>' + confirmation + '</span></div>' : '') + '</section>';
+  }
+  function active() {
+    if (state.status === 3) { closed(); return; }
+    var heading = state.queued ? t("queued") : state.status >= 2 ? t("reviewing") : t("waiting");
+    screen.innerHTML =
+      '<section class="vc-call-head"><div class="vc-call-icon"><i data-lucide="' + (state.status >= 2 ? 'headset' : 'radio-tower') + '" aria-hidden="true"></i></div><div class="vc-call-state">' + (state.queued ? t("pending") : [t("received"),t("seen"),t("accepted")][state.status]) + '</div><h2>' + heading + '</h2><div class="vc-timer" id="vc-timer">' + escapeHTML(state.caseReference) + ' · ' + state.caseTime + ' · ' + duration() + '</div></section>' +
+      network() + (state.queued ? '' : timeline()) + instruction() +
+      '<div class="vc-evidence-title"><h2>' + t("share") + '</h2><span>' + t("pilot") + '</span></div>' +
+      (state.location ? '<section class="vc-location-detail"><strong>' + t("locationShared") + '</strong><p>39.4702, −0.3768 · ' + t("accuracy") + ' · ' + t("age") + ' ' + (state.locationAge < 60 ? t("now") : Math.floor(state.locationAge / 60) + ' min') + '</p><div class="vc-actions"><button class="vc-mini" id="vc-update-location" type="button">' + t("update") + '</button><button class="vc-mini" id="vc-stop-location" type="button">' + t("stop") + '</button></div></section>' : '<button class="vc-secondary" id="vc-add-location" type="button">' + t("allowLocation") + '</button>') +
+      '<div class="vc-tools"><button class="vc-tool ' + (state.photo && !state.photoDraft ? 'is-complete' : '') + '" id="vc-active-photo" type="button"><i data-lucide="' + (state.photoDraft ? 'clock-3' : state.photo ? 'circle-check' : 'camera') + '" aria-hidden="true"></i><strong>' + (state.photoDraft ? t("photoDraft") : state.photo ? t("photoSent") : t("photo")) + '</strong><small>' + (state.photoDraft ? t("preview") : t("camera")) + '</small></button><button class="vc-tool ' + (state.videoStarted ? 'is-complete' : '') + '" id="vc-video" type="button"' + (!state.videoRequested ? ' disabled' : '') + '><i data-lucide="video" aria-hidden="true"></i><strong>' + (state.videoStarted ? t("videoActive") : state.videoRequested ? t("videoOn") : t("videoOff")) + '</strong><small>' + (state.videoRequested ? t("videoOnHint") : t("videoOffHint")) + '</small></button></div>' + photoPreview() +
+      options(true) + statusActions() +
+      (state.silent ? '<section class="vc-written"><strong>' + t("written") + '</strong><textarea class="vc-message-input" id="vc-message" maxlength="280" placeholder="' + t("msgPlaceholder") + '"></textarea><button class="vc-mini" id="vc-send-message" type="button">' + (state.messageSent ? t("delivered") : t("sendMsg")) + '</button></section>' : '') +
+      call112() + '<details class="vc-optional"><summary>' + t("demo") + '</summary><div class="vc-optional-body"><button class="vc-secondary" id="vc-close" type="button">' + t("closeDemo") + '</button></div></details><p class="vc-privacy">' + t("privacy") + '</p>';
+    var retry = document.getElementById("vc-retry");
+    if (retry) retry.addEventListener("click", function () {
+      state.status = 0; state.seconds = 0;
+      if (state.connectedMode) { state.queued = true; render(); emitNetwork("vt01:incident-submit",incidentPayload()); }
+      else { state.queued = false; state.lowCoverage = false; render(); say(t("retry")); }
+    });
+    var read = document.getElementById("vc-read");
+    if (read) read.addEventListener("click", function () { state.instructionRead = true; render(); say(t("read")); });
+    var update = document.getElementById("vc-update-location");
+    if (update) update.addEventListener("click", function () { state.locationAge = 0; render(); say(t("locationReady")); });
+    var stop = document.getElementById("vc-stop-location");
+    if (stop) stop.addEventListener("click", function () { state.location = false; render(); say(t("stop")); });
+    var add = document.getElementById("vc-add-location");
+    if (add) add.addEventListener("click", function () { askConsent("location","active"); });
+    document.getElementById("vc-active-photo").addEventListener("click", function () { askConsent("photo","active"); });
+    var video = document.getElementById("vc-video");
+    if (state.videoRequested) video.addEventListener("click", function () { state.videoStarted = true; render(); say(t("videoActive")); });
+    var msg = document.getElementById("vc-send-message");
+    if (msg) msg.addEventListener("click", function () { state.messageSent = true; render(); say(t("delivered")); });
+    screen.querySelectorAll("[data-status-update]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        state.statusUpdate = button.dataset.statusUpdate;
+        render();
+        say(t(state.statusUpdate === "still" ? "stillConfirmed" : "worsenedConfirmed"));
+      });
+    });
+    document.getElementById("vc-close").addEventListener("click", function () { state.status = 3; clearInterval(timer); render(); say(t("closed")); });
+    bindOptions(); bindPhotoPreview(); icons();
+  }
+  function closed() {
+    screen.innerHTML = '<section class="vc-call-head vc-closed"><i data-lucide="circle-check-big" aria-hidden="true"></i><span class="vc-pill">' + escapeHTML(state.caseReference) + ' · ' + t("closed") + '</span><h2>' + t("closedTitle") + '</h2><p>' + t("closedCopy") + '</p></section>' + timeline() + '<div class="vc-summary"><span>' + t(state.type) + '</span><span>' + t(state.checkin) + '</span><span>' + state.persons + ' · ' + t("people") + '</span>' + (state.location ? '<span>GPS ±12 m</span>' : '') + (state.photo ? '<span>' + t("photoSent") + '</span>' : '') + '</div><button class="vc-primary" id="vc-new" type="button">' + t("newReport") + '</button><p class="vc-privacy">' + t("privacy") + '</p>';
+    document.getElementById("vc-new").addEventListener("click", reset); icons();
+  }
+  function startCase() {
+    var now = new Date();
+    state.caseTime = String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+    state.caseClientRequestId=clientRequestId("incident"); state.caseReference=state.connectedMode ? "Pendiente" : "VT-2041"; state.remoteInstruction="";
+    state.view = "active"; state.infoView = null; state.drawerOpen = false; state.queued = state.connectedMode || state.lowCoverage; state.status = 0; state.seconds = 0; state.instructionRead = false; state.messageSent = false; state.statusUpdate = null; state.photoDraft = false;
+    render(); say(state.queued ? t("queued") : t("received"));
+    emitNetwork("vt01:incident-submit",incidentPayload());
+    startTimer();
+  }
+  function startTimer() {
+    clearInterval(timer);
+    if (state.view !== "active" || state.status === 3) return;
+    timer = setInterval(function () {
+      state.seconds += 1;
+      if (state.location) state.locationAge += 1;
+      if (!state.connectedMode && !state.queued && state.status < 1 && state.seconds >= 2) { state.status = 1; render(); say(t("seen")); }
+      else if (!state.connectedMode && !state.queued && state.status < 2 && state.seconds >= 4) { state.status = 2; render(); say(t("accepted")); }
+      else { var node = document.getElementById("vc-timer"); if (node) node.textContent = state.caseReference + " · " + state.caseTime + " · " + duration(); saveState(); }
+    },1000);
+  }
+  function reset() {
+    clearInterval(timer);
+    state.view = "home"; state.returnView = "home"; state.type = state.alertScenario === "fire" ? "fire" : "dana";
+    state.photo = false; state.photoDraft = false; state.location = false; state.locationAge = 0; state.consent = null;
+    state.checkin = "help"; state.persons = 1; state.need = "none"; state.silent = false; state.status = 0;
+    state.queued = false; state.seconds = 0; state.caseTime = "10:42"; state.caseReference = "VT-2041"; state.caseClientRequestId = ""; state.remoteInstruction = ""; state.instructionRead = false;
+    state.messageSent = false; state.statusUpdate = null; state.videoRequested = false; state.videoStarted = false; state.note = ""; state.infoView = null; state.drawerOpen = false;
+    try { window.localStorage.removeItem(storageKey); } catch (error) {}
+    render();
+  }
+  function render() {
+    chrome();
+    if (state.view === "consent") consent(); else if (state.infoView) infoPanel(); else if (state.view === "home") home(); else active();
+    saveState();
+  }
+  loadSaved();
+  document.getElementById("vc-menu-toggle").addEventListener("click",function(){ state.drawerOpen=!state.drawerOpen; render(); });
+  document.getElementById("vc-backdrop").addEventListener("click",function(){ state.drawerOpen=false; render(); });
+  render();
+  if (state.view === "active" && state.status < 3) startTimer();
+  if (window.Tweak) {
+    var tweak = new Tweak({container:document.querySelector("#vt-citizen-preview .vc-phone"),onChange:render});
+    tweak.addSelect(state,"alertScenario",{label:"Escenario visible",options:[{label:"DANA",value:"dana"},{label:"Incendio",value:"fire"}],reference:"citizen.alert-scenario"});
+    tweak.addSelect(state,"lang",{label:"Idioma",options:[{label:"Español",value:"es"},{label:"Valencià",value:"val"},{label:"English",value:"en"}],reference:"citizen.language"});
+    tweak.addToggle(state,"lowCoverage",{label:"Cobertura limitada",reference:"citizen.low-coverage"});
+    tweak.addToggle(state,"videoRequested",{label:"Vídeo solicitado por central",reference:"citizen.video-request"});
+    tweak.addToggle(state,"largeText",{label:"Texto grande",reference:"citizen.large-text"});
+    tweak.addToggle(state,"contrast",{label:"Contraste reforzado",reference:"citizen.high-contrast"});
+  }
+  window.VT01Citizen = {
+    setConnected:function(enabled){state.connectedMode=enabled === true;render();},
+    snapshot:function(){return {incident:incidentPayload(),caseReference:state.caseReference,publicCheckin:publicCheckinPayload(),publicSubmitted:state.publicSubmitted};},
+    incidentAcknowledged:function(remote){
+      if (!remote || !remote.id) return;
+      state.caseReference=String(remote.id).slice(0,24); state.queued=false;
+      state.status=remote.status === "closed" ? 3 : remote.status === "accepted" ? 2 : 0;
+      state.videoRequested=Boolean(remote.mediaRequests && remote.mediaRequests.video === "requested");
+      if (typeof remote.instruction === "string" && remote.instruction !== state.remoteInstruction) { state.remoteInstruction=remote.instruction.slice(0,500); state.instructionRead=false; }
+      render(); say(t("received"));
+    },
+    incidentFailed:function(){state.queued=true;render();},
+    checkinAcknowledged:function(response){
+      if (!response || !response.id) return;
+      var receivedAt=String(response.serverReceivedAt || "");
+      var parsed=receivedAt ? new Date(receivedAt) : new Date();
+      state.publicReference=String(response.id).slice(0,24); state.publicSync="received";
+      state.publicTime=String(parsed.getHours()).padStart(2,"0")+":"+String(parsed.getMinutes()).padStart(2,"0");
+      state.publicUpdated=timeStamp(); render(); say(c("receiptTitle"));
+    },
+    checkinFailed:function(){state.publicSync="queued";render();}
+  };
+})();
+</script>
+
+  <script src="/assets/citizen-api.js"></script>
+  <script src="/assets/citizen-v2.js"></script>
+</body>
+</html>

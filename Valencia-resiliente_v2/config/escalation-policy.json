@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "emergencyNumber": "112",
+  "callMode": "one_tap",
+  "voice": {
+    "autoSpeak": true,
+    "autoListen": true
+  },
+  "questions": [
+    {
+      "id": "danger",
+      "text": {
+        "es": "¿Estás en peligro inmediato o en la zona afectada?",
+        "val": "Estàs en perill immediat o en la zona afectada?",
+        "en": "Are you in immediate danger or in the affected area?"
+      }
+    },
+    {
+      "id": "knowsAction",
+      "text": {
+        "es": "¿Sabes cómo actuar ante esta situación?",
+        "val": "Saps com actuar davant d'esta situació?",
+        "en": "Do you know what to do in this situation?"
+      }
+    },
+    {
+      "id": "needsHelp",
+      "text": {
+        "es": "¿Necesitas ayuda para ti o para otra persona?",
+        "val": "Necessites ajuda per a tu o per a una altra persona?",
+        "en": "Do you need help for yourself or someone else?"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "critical-danger-no-guidance-with-help",
+      "when": {
+        "all": [
+          {"field": "danger", "equals": true},
+          {"field": "knowsAction", "equals": false},
+          {"field": "needsHelp", "equals": true}
+        ]
+      },
+      "priority": "critical",
+      "createIncident": true,
+      "offerEmergencyCall": true,
+      "citizenState": "trapped",
+      "need": "Peligro inmediato, sin pauta de actuación y con solicitud de ayuda"
+    },
+    {
+      "id": "high-danger-no-guidance",
+      "when": {
+        "all": [
+          {"field": "danger", "equals": true},
+          {"field": "knowsAction", "equals": false}
+        ]
+      },
+      "priority": "high",
+      "createIncident": true,
+      "offerEmergencyCall": true,
+      "citizenState": "trapped",
+      "need": "Peligro inmediato y no sabe cómo actuar"
+    },
+    {
+      "id": "high-assistance-combination",
+      "when": {
+        "all": [
+          {"field": "needsHelp", "equals": true},
+          {
+            "any": [
+              {"field": "danger", "equals": true},
+              {"field": "knowsAction", "equals": true}
+            ]
+          }
+        ]
+      },
+      "priority": "high",
+      "createIncident": true,
+      "offerEmergencyCall": false,
+      "citizenState": "help",
+      "need": "Solicitud de ayuda reforzada por las respuestas de triaje"
+    }
+  ],
+  "defaultDecision": {
+    "priority": "pending",
+    "createIncident": false,
+    "offerEmergencyCall": false,
+    "citizenState": "safe",
+    "need": "Respuesta a alerta pública"
+  }
+}

@@ -1,0 +1,532 @@
+/*
+ * VT-01 visual system
+ * Cloud #F3F5F5 · Graphite #172126 · Operational teal #0B6B70
+ * Critical coral #A70F24 · Warning amber #856000
+ */
+:root {
+  --vt-cloud: #f3f5f5;
+  --vt-graphite: #172126;
+  --vt-teal: #0b6b70;
+  --vt-coral: #a70f24;
+  --vt-amber: #856000;
+  --vt-surface: #ffffff;
+  --vt-muted: #647277;
+  --vt-line: #dce2e3;
+  --vt-soft: #f7f9f9;
+  --vt-shadow: 0 1px 2px rgb(23 33 38 / 5%), 0 8px 28px rgb(23 33 38 / 5%);
+}
+
+html body {
+  background: var(--vt-cloud);
+  color: var(--vt-graphite);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Operator shell and authentication */
+html body .auth-card,
+html body .session-bar,
+html body .modal {
+  border-color: var(--vt-line);
+  background: var(--vt-surface);
+  color: var(--vt-graphite);
+  box-shadow: var(--vt-shadow);
+}
+
+html body .auth-card {
+  border-radius: 16px;
+  padding: 30px;
+}
+
+html body .auth-logo {
+  border-radius: 10px;
+  background: var(--vt-teal);
+}
+
+html body .auth-card h1 {
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+
+html body .auth-card > p,
+html body .auth-note,
+html body .sync-state {
+  color: var(--vt-muted);
+}
+
+html body .auth-field input,
+html body .auth-field select,
+html body .session-btn,
+html body .icon-btn {
+  border-color: var(--vt-line);
+  border-radius: 8px;
+  background: var(--vt-surface);
+  color: var(--vt-graphite);
+}
+
+html body .auth-button,
+html body .session-btn.primary {
+  border-radius: 8px;
+  background: var(--vt-teal);
+  color: #fff;
+}
+
+html body .auth-error { color: var(--vt-coral); }
+html body .session-dot { background: var(--vt-teal); }
+
+html body .session-bar {
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgb(23 33 38 / 4%);
+}
+
+html body .language-control {
+  color: var(--vt-muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .02em;
+}
+
+html body .language-control select {
+  border-color: var(--vt-line);
+  border-radius: 7px;
+  background: var(--vt-surface);
+  color: var(--vt-graphite);
+  font-weight: 700;
+}
+
+html body .language-control select:focus-visible {
+  outline: 3px solid rgb(11 107 112 / 24%);
+  outline-offset: 2px;
+}
+
+/* Central operations dashboard */
+html body #vt-dashboard {
+  color-scheme: light;
+  --v-bg: var(--vt-cloud);
+  --v-panel: var(--vt-surface);
+  --v-soft: var(--vt-soft);
+  --v-text: var(--vt-graphite);
+  --v-muted: var(--vt-muted);
+  --v-line: var(--vt-line);
+  --v-brand: var(--vt-teal);
+  --v-brand-text: #ffffff;
+  --v-red: var(--vt-coral);
+  --v-orange: var(--vt-amber);
+  --v-green: var(--vt-teal);
+  --v-purple: #665b8f;
+  --v-need-high: var(--vt-coral);
+  --v-need-medium: var(--vt-amber);
+  --v-need-low: var(--vt-teal);
+  --v-map: #e4eeeb;
+  --v-map-line: #ffffff;
+  border-color: var(--vt-line);
+  border-radius: 14px;
+  background: var(--vt-cloud);
+  box-shadow: var(--vt-shadow);
+}
+
+html body #vt-dashboard .v-head {
+  padding: 18px 20px;
+  border-bottom: 0;
+  background: var(--vt-graphite);
+  color: #fff;
+}
+
+html body #vt-dashboard .v-logo {
+  border-radius: 9px;
+  background: var(--vt-teal);
+  color: #fff;
+}
+
+html body #vt-dashboard h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+html body #vt-dashboard .v-head .v-sub { color: #b8c4c7; }
+html body #vt-dashboard .v-head .v-mode {
+  color: #9bdbd7;
+  background: rgb(11 107 112 / 28%);
+}
+html body #vt-dashboard .v-head .v-health { color: #83d4c5; }
+html body #vt-dashboard .v-head .v-btn {
+  border-color: #46545a;
+  background: #243137;
+  color: #f7f9f9;
+}
+html body #vt-dashboard .v-head .v-btn-primary {
+  border-color: var(--vt-teal);
+  background: var(--vt-teal);
+  color: #fff;
+}
+
+html body #vt-dashboard .v-system-bar {
+  padding-block: 9px;
+  background: var(--vt-surface);
+}
+
+html body #vt-dashboard .v-body { padding: 16px; }
+html body #vt-dashboard .v-stats { gap: 12px; margin-bottom: 12px; }
+
+html body #vt-dashboard .v-stat {
+  min-height: 94px;
+  padding: 14px 16px 12px;
+  border-color: var(--vt-line);
+  border-top: 3px solid var(--vt-teal);
+  border-radius: 10px;
+  background: var(--vt-surface);
+  box-shadow: 0 1px 2px rgb(23 33 38 / 4%);
+}
+
+html body #vt-dashboard .v-stat:first-child { border-top-color: var(--vt-coral); }
+html body #vt-dashboard .v-stat:nth-child(3) { border-top-color: var(--vt-amber); }
+
+html body #vt-dashboard .v-stat-name {
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+html body #vt-dashboard .v-stat-row { margin-top: 7px; }
+html body #vt-dashboard .v-stat-value {
+  font-size: 29px;
+  font-weight: 720;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+html body #vt-dashboard .v-alert-overview,
+html body #vt-dashboard .v-map-panel,
+html body #vt-dashboard .v-queue,
+html body #vt-dashboard .v-detail {
+  border-color: var(--vt-line);
+  border-radius: 11px;
+  background: var(--vt-surface);
+  box-shadow: 0 1px 2px rgb(23 33 38 / 4%);
+}
+
+html body #vt-dashboard .v-alert-overview { margin-bottom: 12px; }
+html body #vt-dashboard .v-alert-head,
+html body #vt-dashboard .v-panel-head { padding: 13px 15px; }
+
+html body #vt-dashboard h2,
+html body #vt-dashboard .v-detail-title {
+  font-weight: 680;
+  letter-spacing: -.012em;
+}
+
+html body #vt-dashboard .v-response-strip { gap: 8px; }
+html body #vt-dashboard .v-response-cell,
+html body #vt-dashboard .v-zone-card,
+html body #vt-dashboard .v-matrix-card,
+html body #vt-dashboard .v-privacy-item,
+html body #vt-dashboard .v-location-summary,
+html body #vt-dashboard .v-verify-step,
+html body #vt-dashboard .v-message,
+html body #vt-dashboard .v-media-request {
+  border: 1px solid #e7ebec;
+  border-radius: 8px;
+  background: var(--vt-soft);
+}
+
+html body #vt-dashboard .v-response-cell { padding: 11px; }
+html body #vt-dashboard .v-response-cell strong {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+
+html body #vt-dashboard .v-reason-track {
+  height: 6px;
+  background: #e6ebeb;
+}
+html body #vt-dashboard .v-reason-track span { background: var(--vt-teal); }
+
+html body #vt-dashboard .v-main {
+  grid-template-columns: minmax(0, 1.72fr) minmax(300px, .72fr);
+  gap: 12px;
+}
+
+html body #vt-dashboard .v-map-wrap {
+  height: 500px;
+  background: #e9efed;
+}
+
+html body #vt-dashboard .v-map-note {
+  border: 1px solid rgb(220 226 227 / 85%);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 1px 4px rgb(23 33 38 / 8%);
+  color: #5f6d72;
+}
+
+html body #vt-dashboard .v-cases { gap: 3px; padding: 7px; }
+html body #vt-dashboard .v-case {
+  border-radius: 7px;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+html body #vt-dashboard .v-case:hover { background: #f3f6f6; }
+html body #vt-dashboard .v-case.is-selected {
+  background: #eaf3f2;
+  box-shadow: inset 3px 0 0 var(--vt-teal);
+}
+
+html body #vt-dashboard .v-btn,
+html body #vt-dashboard .v-tab,
+html body #vt-dashboard select {
+  border-radius: 7px;
+  font-weight: 620;
+}
+
+html body #vt-dashboard .v-btn-primary {
+  background: var(--vt-teal);
+  color: #fff;
+}
+html body #vt-dashboard .v-btn-danger { color: var(--vt-coral); }
+
+html body #vt-dashboard .v-alert-tabs,
+html body #vt-dashboard .v-detail-tabs { background: #f6f8f8; }
+html body #vt-dashboard .v-tab[aria-selected="true"] {
+  box-shadow: 0 1px 3px rgb(23 33 38 / 8%);
+  background: #fff;
+}
+
+html body #vt-dashboard .leaflet-container {
+  background: #e9efed;
+  color: var(--vt-graphite);
+  font-family: inherit;
+}
+html body #vt-dashboard .leaflet-bar {
+  border: 0;
+  box-shadow: 0 2px 10px rgb(23 33 38 / 16%);
+}
+html body #vt-dashboard .leaflet-bar a {
+  border-color: var(--vt-line);
+  background: #fff;
+  color: var(--vt-graphite);
+}
+html body #vt-dashboard .leaflet-control-attribution {
+  background: rgb(255 255 255 / 86%);
+  color: #5f6d72;
+  font-size: 9px;
+}
+
+/* Citizen dashboard */
+html body #vt-citizen-preview {
+  color-scheme: light;
+  --c-bg: var(--vt-cloud);
+  --c-surface: var(--vt-surface);
+  --c-soft: var(--vt-soft);
+  --c-text: var(--vt-graphite);
+  --c-muted: var(--vt-muted);
+  --c-line: var(--vt-line);
+  --c-brand: var(--vt-teal);
+  --c-brand-text: #fff;
+  --c-danger: var(--vt-coral);
+  --c-warning: var(--vt-amber);
+  --c-success: var(--vt-teal);
+  --yellow: #d9ad22;
+  --orange: var(--vt-amber);
+  --red: var(--vt-coral);
+  color: var(--vt-graphite);
+}
+
+html body .connected-banner {
+  max-width: 920px;
+  border: 1px solid #cde0de;
+  border-radius: 9px;
+  background: #eaf3f2;
+  color: #07585c;
+  font-weight: 650;
+}
+
+html body #vt-citizen-preview .vc-phone {
+  border-color: var(--vt-line);
+  border-radius: 16px;
+  background: var(--vt-cloud);
+  box-shadow: var(--vt-shadow);
+}
+
+html body #vt-citizen-preview .vc-header {
+  padding-block: 15px;
+  border-bottom: 0;
+  background: var(--vt-graphite);
+  color: #fff;
+}
+
+html body #vt-citizen-preview .vc-logo {
+  border-radius: 9px;
+  background: var(--vt-teal);
+  color: #fff;
+}
+
+html body #vt-citizen-preview h1 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+html body #vt-citizen-preview .vc-header .vc-subtitle { color: #b8c4c7; }
+html body #vt-citizen-preview .vc-header .vc-session { color: #83d4c5; }
+html body #vt-citizen-preview .vc-header .vc-language,
+html body #vt-citizen-preview .vc-header .vc-access,
+html body #vt-citizen-preview .vc-header .vc-menu-toggle {
+  border-color: #46545a;
+  background: #243137;
+  color: #fff;
+}
+html body #vt-citizen-preview .vc-header .vc-header-112 {
+  border-color: rgb(214 69 80 / 72%);
+  background: rgb(214 69 80 / 16%);
+  color: #ffadb3;
+}
+
+html body #vt-citizen-preview .vc-sidebar {
+  border-color: var(--vt-line);
+  background: #f8fafa;
+}
+html body #vt-citizen-preview .vc-side-link { border-radius: 7px; }
+html body #vt-citizen-preview .vc-side-link.is-active {
+  background: #eaf3f2;
+  color: var(--vt-teal);
+  box-shadow: inset 3px 0 0 var(--vt-teal);
+}
+
+html body #vt-citizen-preview .vc-emergency-dock {
+  padding-block: 10px;
+  background: var(--vt-surface);
+}
+html body #vt-citizen-preview .vc-dock-call,
+html body #vt-citizen-preview .vc-dock-report {
+  border-radius: 8px;
+  font-weight: 680;
+}
+html body #vt-citizen-preview .vc-dock-call {
+  border-color: var(--vt-coral);
+  background: var(--vt-coral);
+}
+html body #vt-citizen-preview .vc-dock-report {
+  border-color: var(--vt-teal);
+  background: var(--vt-teal);
+}
+
+html body #vt-citizen-preview .vc-content { gap: 14px; padding: 16px; }
+
+html body #vt-citizen-preview .vc-alert {
+  padding: 15px 16px;
+  border-color: #ead7bb;
+  border-left: 4px solid var(--vt-amber);
+  border-radius: 10px;
+  background: #fff9f0;
+}
+html body #vt-citizen-preview .vc-alert h2,
+html body #vt-citizen-preview .vc-info-head h2,
+html body #vt-citizen-preview .vc-call-head h2,
+html body #vt-citizen-preview .vc-consent h2,
+html body #vt-citizen-preview .vc-closed h2 {
+  font-weight: 700;
+  letter-spacing: -.018em;
+}
+
+html body #vt-citizen-preview .vc-real-emergency,
+html body #vt-citizen-preview .vc-info-section,
+html body #vt-citizen-preview .vc-call-head,
+html body #vt-citizen-preview .vc-consent,
+html body #vt-citizen-preview .vc-public-entry,
+html body #vt-citizen-preview .vc-public-block,
+html body #vt-citizen-preview .vc-optional,
+html body #vt-citizen-preview .vc-photo-preview,
+html body #vt-citizen-preview .vc-instruction,
+html body #vt-citizen-preview .vc-location-detail,
+html body #vt-citizen-preview .vc-written {
+  border-color: var(--vt-line);
+  border-radius: 10px;
+  background: var(--vt-surface);
+  box-shadow: 0 1px 2px rgb(23 33 38 / 4%);
+}
+
+html body #vt-citizen-preview .vc-real-emergency {
+  border-left: 4px solid var(--vt-coral);
+  background: #fff7f7;
+}
+html body #vt-citizen-preview .vc-call-112 {
+  border-radius: 8px;
+  background: var(--vt-coral);
+  font-weight: 700;
+}
+
+html body #vt-citizen-preview .vc-weather-icon {
+  border-radius: 12px;
+  background: #eaf3f2;
+  color: var(--vt-teal);
+}
+html body #vt-citizen-preview .vc-temperature {
+  font-size: 36px;
+  font-weight: 720;
+  letter-spacing: -.045em;
+}
+html body #vt-citizen-preview .vc-metrics { gap: 8px; }
+html body #vt-citizen-preview .vc-metric {
+  padding: 10px;
+  border: 1px solid #e7ebec;
+  border-radius: 8px;
+  background: var(--vt-soft);
+}
+html body #vt-citizen-preview .vc-metric strong {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+html body #vt-citizen-preview .vc-type,
+html body #vt-citizen-preview .vc-tool,
+html body #vt-citizen-preview .vc-risk-row,
+html body #vt-citizen-preview .vc-silent,
+html body #vt-citizen-preview textarea,
+html body #vt-citizen-preview input,
+html body #vt-citizen-preview select,
+html body #vt-citizen-preview .vc-message-input,
+html body #vt-citizen-preview .vc-mini,
+html body #vt-citizen-preview .vc-secondary {
+  border-radius: 8px;
+}
+
+html body #vt-citizen-preview .vc-primary {
+  border-radius: 8px;
+  background: var(--vt-teal);
+  font-weight: 700;
+}
+html body #vt-citizen-preview .vc-risk-row.is-selected,
+html body #vt-citizen-preview .vc-type.is-selected,
+html body #vt-citizen-preview .vc-checkin button.is-selected {
+  border-color: var(--vt-teal);
+  background: #eaf3f2;
+}
+
+html body #vt-citizen-preview .vc-risk-dot[data-level="orange"] { background: var(--vt-amber); }
+html body #vt-citizen-preview .vc-risk-dot[data-level="red"] { background: var(--vt-coral); }
+html body #vt-citizen-preview .vc-footer { background: #f8fafa; }
+
+html body #vt-citizen-preview.is-contrast {
+  --c-text: #0d1417;
+  --c-muted: #455257;
+  --c-line: #a6b1b3;
+}
+
+@media (max-width: 740px) {
+  html body #vt-dashboard .v-main { grid-template-columns: 1fr; }
+  html body #vt-dashboard .v-map-wrap { height: 390px; }
+}
+
+@media (max-width: 420px) {
+  html body #vt-citizen-preview .vc-phone { border-radius: 12px; }
+  html body #vt-citizen-preview .vc-content { padding: 12px; }
+  html body .auth-card { padding: 23px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body #vt-dashboard .v-case { transition: none; }
+}

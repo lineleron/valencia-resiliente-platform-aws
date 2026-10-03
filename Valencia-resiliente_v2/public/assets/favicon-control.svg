@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Central de emergencias">
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#A70F24"/>
+  <path d="M32 10 50 17v13c0 12.1-7.1 20.1-18 24-10.9-3.9-18-11.9-18-24V17l18-7Z" fill="#fff"/>
+  <path d="M32 20v17" stroke="#A70F24" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="32" cy="44" r="3.5" fill="#A70F24"/>
+</svg>
